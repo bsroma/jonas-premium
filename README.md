@@ -1,43 +1,86 @@
-# JONAS PREMIUM — web y panel de administración
+# JONAS PREMIUM — Executive Transportation Platform
 
-Web estática para GitHub Pages + Supabase. Proyecto independiente.
+JONAS PREMIUM is a web-based executive transportation booking platform built to manage customer requests, reservations, pricing configuration, and administrative operations.
 
-## Configuración existente
+The project combines a public-facing website with a private administration panel, using Supabase for authentication, database management, and access control.
 
-- Web pública: `index.html`.
-- Panel privado: `admin.html`.
-- Cliente Supabase: `config.js` (solo URL y clave pública/publishable; nunca incluir `service_role` ni `sb_secret`).
-- Los permisos reales se aplican en Supabase mediante RLS y la tabla `admin_users`.
+## 🚀 Project Overview
 
-## Panel de administración actualizado
+The application consists of two main components:
 
-Después de iniciar sesión con un usuario autorizado en `admin_users`, el panel permite:
+- **Public Website:** Customer-facing interface for requesting transportation services.
+- **Admin Dashboard:** Private management interface for authorized administrators.
 
-- Consultar solicitudes, cambiar sus estados y abrir WhatsApp con un mensaje inicial.
-- Modificar la configuración general de tarifas. El panel fuerza `pricing_enabled = false` durante esta fase.
-- Crear, editar, activar y desactivar tarifas fijas por trayecto.
-- Modificar importes y activar/desactivar suplementos.
-- Crear presupuestos manuales asociados a solicitudes, mantener su historial y cambiar su estado.
-- Preparar mensajes de WhatsApp y correo. La web abre el enlace prellenado; el administrador debe revisar y pulsar Enviar en la aplicación correspondiente.
+## ✨ Key Features
 
-Las solicitudes ya no tienen botón de borrado definitivo en el panel; se pueden cancelar para conservar su historial.
+### Public Website
+- Transportation booking request form.
+- Customer service requests.
+- WhatsApp communication with pre-filled messages.
+- Responsive web interface.
 
-## Publicación
+### Administration Dashboard
+- Secure administrator authentication.
+- Reservation and request management.
+- Booking status updates.
+- Fixed-route pricing management.
+- Additional service fees management.
+- Manual quotation creation and management.
+- Quotation history and status tracking.
+- Prepared WhatsApp and email communications.
 
-1. Conserva una copia de seguridad de los archivos actuales.
-2. Sube los archivos actualizados a la raíz del repositorio GitHub Pages, sustituyendo `admin.html`, `admin.js` y `README.md` y añadiendo `config.js` solo si tu repositorio aún no lo tiene.
-3. Mantén `index.html`, `app.js`, `styles.css`, `privacidad.html`, el workflow y los demás archivos existentes. Esta actualización no necesita cambiar el formulario público.
-4. Espera a que termine la acción de GitHub Pages y abre `/admin.html`.
-5. Prueba cada apartado con tu cuenta administradora.
+### Database & Security
+- Supabase integration.
+- PostgreSQL database.
+- Row Level Security (RLS).
+- Role-based administrative access using an `admin_users` table.
+- Separation between public functionality and administrative operations.
 
-## Importante sobre el envío de mensajes
+## 🛠️ Technologies Used
 
-Abrir WhatsApp o el cliente de correo con un texto preparado no equivale a enviarlo. El historial registra que el enlace se abrió; solo el administrador puede completar el envío desde WhatsApp o su correo. No se envían mensajes automáticamente.
+- HTML5
+- CSS3
+- JavaScript
+- Supabase
+- PostgreSQL
+- GitHub Pages
 
-## Seguridad y límites pendientes
+## 🏗️ Architecture
 
-- La clave anon/publishable está diseñada para el navegador, pero toda protección de datos depende de RLS y permisos correctos. Nunca publiques claves `service_role`, `sb_secret`, contraseñas ni tokens.
-- El motor de cálculo automático de precios sigue desactivado. Esta versión no calcula rutas, distancia ni tiempo real y no muestra precios automáticos al cliente.
-- Los precios fijos y suplementos son configurables en el panel, pero todavía no se aplican al formulario público ni al cálculo de presupuestos.
-- Las tablas nuevas (`pricing_settings`, `fixed_routes`, `pricing_extras`, `quotes`, `quote_messages`) deben existir y tener las políticas RLS creadas en Supabase.
-- Antes de promocionar la web, completar aviso legal/privacidad, añadir protección antispam y realizar una prueba integral.
+The application uses a static frontend hosted on GitHub Pages, with Supabase providing backend services.
+
+The public website and administration dashboard are maintained as separate interfaces within the same project.
+
+## 🔐 Security Considerations
+
+- Administrative access requires authentication and authorization.
+- Database permissions are enforced through Supabase RLS policies.
+- Public browser configuration uses only the Supabase publishable/anonymous key.
+- Service role keys and secret credentials must never be exposed in frontend code.
+
+## ⚠️ Current Development Status
+
+The pricing engine is currently disabled.
+
+Although administrators can configure fixed routes, prices, and additional fees, these settings are not yet connected to automatic public fare calculations.
+
+The platform currently supports manual quotations.
+
+WhatsApp and email messages are prepared for administrator review. Messages are not sent automatically.
+
+Additional work is planned for:
+- Automated pricing integration.
+- Route and distance calculations.
+- Spam protection.
+- Legal and privacy documentation.
+- Full end-to-end testing.
+
+## 📦 Deployment
+
+The public website is deployed through GitHub Pages, while Supabase provides authentication and database services.
+
+## 🎯 Project Goals
+
+JONAS PREMIUM was developed to provide a practical digital solution for executive transportation businesses, combining customer booking requests with administrative management tools.
+
+This project demonstrates practical experience building web applications, integrating backend services, managing database permissions, and developing business-oriented software.
