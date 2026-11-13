@@ -1,54 +1,43 @@
-# JONAS PREMIUM — web y panel básico
+# JONAS PREMIUM — web y panel de administración
 
 Web estática para GitHub Pages + Supabase. Proyecto independiente.
 
-## 1. Configuración
-1. Crea un proyecto Supabase nuevo, separado de cualquier otro proyecto.
-2. En SQL Editor ejecuta `supabase.sql`.
-3. En Authentication crea el usuario administrador con email y contraseña.
-4. Copia el UUID de ese usuario desde Authentication > Users.
-5. Ejecuta en SQL Editor: `insert into public.admin_users(user_id) values ('UUID_DEL_USUARIO_ADMIN');`
-6. Copia `config.example.js` como `config.js` y completa URL y clave anon/publishable del proyecto.
-7. No compartas ni uses la clave `service_role`. `config.js` está ignorado por Git.
+## Configuración existente
 
-## 2. Probar localmente
-Desde la carpeta del proyecto:
-`python -m http.server 8000`
-Abre `http://localhost:8000`. (No abras index.html con doble clic: los módulos JavaScript necesitan servidor.)
+- Web pública: `index.html`.
+- Panel privado: `admin.html`.
+- Cliente Supabase: `config.js` (solo URL y clave pública/publishable; nunca incluir `service_role` ni `sb_secret`).
+- Los permisos reales se aplican en Supabase mediante RLS y la tabla `admin_users`.
 
-## 3. Publicar gratis
-1. Crea un repositorio GitHub nuevo, por ejemplo `jonas-premium`.
-2. Sube todos los archivos, incluido `.github/workflows/deploy.yml`, pero NO `config.js`.
-3. En el repositorio: Settings > Secrets and variables > Actions > Variables, crea:
-   - `SUPABASE_URL`
-   - `SUPABASE_ANON_KEY`
-4. Edita el workflow para crear `config.js` antes de publicar, o como alternativa sencilla para la primera prueba, añade `config.js` localmente y súbelo al repositorio privado. **No recomendado para un repositorio público**, aunque la clave anon está diseñada para el navegador; la seguridad depende de RLS.
-5. Settings > Pages > Build and deployment: selecciona GitHub Actions.
+## Panel de administración actualizado
 
-### Inyectar config.js desde GitHub Actions (recomendado)
-Añade este paso antes de `actions/upload-pages-artifact@v3`:
-```yaml
-      - name: Create public Supabase config
-        run: |
-          cat > config.js <<EOF
-          export const SUPABASE_URL = "${{ vars.SUPABASE_URL }}";
-          export const SUPABASE_ANON_KEY = "${{ vars.SUPABASE_ANON_KEY }}";
-          export const WHATSAPP_NUMBER = "34614180881";
-          EOF
-```
-Define esas dos variables en Settings > Secrets and variables > Actions > Variables. La clave anon/publishable es pública por diseño; nunca uses service_role.
+Después de iniciar sesión con un usuario autorizado en `admin_users`, el panel permite:
 
-## 4. Uso
-- Web pública: `/`
-- Panel: `/admin.html`
-- El formulario inserta solicitudes con estado `pending`.
-- Panel permite login, filtrar, cambiar estado, contactar por WhatsApp y eliminar.
-- Las reservas solo se leen/modifican desde cuentas añadidas a `admin_users`.
+- Consultar solicitudes, cambiar sus estados y abrir WhatsApp con un mensaje inicial.
+- Modificar la configuración general de tarifas. El panel fuerza `pricing_enabled = false` durante esta fase.
+- Crear, editar, activar y desactivar tarifas fijas por trayecto.
+- Modificar importes y activar/desactivar suplementos.
+- Crear presupuestos manuales asociados a solicitudes, mantener su historial y cambiar su estado.
+- Preparar mensajes de WhatsApp y correo. La web abre el enlace prellenado; el administrador debe revisar y pulsar Enviar en la aplicación correspondiente.
 
-## 5. Límites y pendientes antes de producción
-- WhatsApp actual es un enlace `wa.me` con texto inicial; **no es un bot IA**. Para automatización real se necesita WhatsApp Business Platform/Cloud API y un backend seguro (Edge Function u otro servidor), webhook, consentimiento y revisión de costes/condiciones.
-- GitHub Pages no ejecuta backend. Supabase actúa como base de datos y autenticación.
-- Añadir CAPTCHA/antispam y límites de envío antes de promocionar la web; una tabla pública de inserción puede recibir spam.
-- Completar aviso legal, privacidad, cookies si se incorporan tecnologías que las requieran, identidad fiscal y dirección del responsable. La página legal incluida es solo plantilla.
-- Reemplazar las fotos de muestra por imágenes propias/licenciadas del XPENG G6 gris y de Cantabria. Las fotos externas actuales son provisionales.
-- Revisar accesibilidad, textos, RGPD y prueba integral antes de anunciarla.
+Las solicitudes ya no tienen botón de borrado definitivo en el panel; se pueden cancelar para conservar su historial.
+
+## Publicación
+
+1. Conserva una copia de seguridad de los archivos actuales.
+2. Sube los archivos actualizados a la raíz del repositorio GitHub Pages, sustituyendo `admin.html`, `admin.js` y `README.md` y añadiendo `config.js` solo si tu repositorio aún no lo tiene.
+3. Mantén `index.html`, `app.js`, `styles.css`, `privacidad.html`, el workflow y los demás archivos existentes. Esta actualización no necesita cambiar el formulario público.
+4. Espera a que termine la acción de GitHub Pages y abre `/admin.html`.
+5. Prueba cada apartado con tu cuenta administradora.
+
+## Importante sobre el envío de mensajes
+
+Abrir WhatsApp o el cliente de correo con un texto preparado no equivale a enviarlo. El historial registra que el enlace se abrió; solo el administrador puede completar el envío desde WhatsApp o su correo. No se envían mensajes automáticamente.
+
+## Seguridad y límites pendientes
+
+- La clave anon/publishable está diseñada para el navegador, pero toda protección de datos depende de RLS y permisos correctos. Nunca publiques claves `service_role`, `sb_secret`, contraseñas ni tokens.
+- El motor de cálculo automático de precios sigue desactivado. Esta versión no calcula rutas, distancia ni tiempo real y no muestra precios automáticos al cliente.
+- Los precios fijos y suplementos son configurables en el panel, pero todavía no se aplican al formulario público ni al cálculo de presupuestos.
+- Las tablas nuevas (`pricing_settings`, `fixed_routes`, `pricing_extras`, `quotes`, `quote_messages`) deben existir y tener las políticas RLS creadas en Supabase.
+- Antes de promocionar la web, completar aviso legal/privacidad, añadir protección antispam y realizar una prueba integral.

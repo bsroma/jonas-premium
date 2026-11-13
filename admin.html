@@ -1,6 +1,72 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Administración | JONAS PREMIUM</title><link rel="stylesheet" href="./styles.css"><style>
-.admin{max-width:1100px;margin:55px auto;padding:0 22px}.admin h1{font-size:34px}.admin-card{background:#f7f6f3;padding:24px;margin:20px 0}.admin-form{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.admin-form input,.admin-form select{min-width:0}.admin-form button{grid-column:1/-1}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.toolbar select{max-width:220px}.reservation{background:#fff;border:1px solid #eee;padding:18px;margin:12px 0;display:grid;grid-template-columns:1fr auto;gap:12px}.reservation p{font-size:12px;color:#777;line-height:1.7;margin:5px 0}.reservation strong{font-size:14px}.reservation-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.smallbtn{border:1px solid #ddd;background:#fff;padding:9px;font:11px Manrope;cursor:pointer}.danger{color:#c22}.hidden{display:none!important}.notice{font-size:12px;color:#777}@media(max-width:600px){.admin-form{grid-template-columns:1fr}.reservation{grid-template-columns:1fr}.reservation-actions{justify-content:flex-start}}
-</style></head><body><header class="topbar"><a class="brand" href="./"><span class="brand-mark">J</span><span>JONAS <b>PREMIUM</b><small>ADMINISTRACIÓN</small></span></a><a href="./">Volver a la web ↗</a></header>
-<main class="admin"><p class="eyebrow">ÁREA PRIVADA</p><h1>Gestión de solicitudes</h1><section id="login-panel" class="admin-card"><h2>Acceso del administrador</h2><p class="notice">Inicia sesión con el usuario autorizado en Supabase.</p><form id="login-form" class="admin-form"><input name="email" type="email" placeholder="Correo electrónico" required><input name="password" type="password" placeholder="Contraseña" required><button class="button button-red">Entrar</button></form><p id="login-msg" class="notice"></p></section>
-<section id="dashboard" class="hidden"><div class="toolbar"><button id="logout" class="smallbtn">Cerrar sesión</button><select id="filter"><option value="all">Todos los estados</option><option value="pending">Pendientes</option><option value="confirmed">Confirmadas</option><option value="completed">Completadas</option><option value="cancelled">Canceladas</option></select><button id="refresh" class="smallbtn">Actualizar</button></div><p id="admin-msg" class="notice"></p><div id="reservations"></div></section></main>
-<script type="module" src="./admin.js"></script></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#121212">
+  <title>Administración | JONAS PREMIUM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    .admin{max-width:1180px;margin:48px auto;padding:0 22px 70px}.admin h1{font-size:clamp(28px,4vw,38px);margin:8px 0}.admin h2{font-size:19px;margin:0 0 8px}.admin-card{background:#f7f6f3;padding:22px;margin:18px 0;border:1px solid #e9e6e1}.admin-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.admin-form label,.quote-form label{font-size:11px;font-weight:700;display:flex;flex-direction:column;gap:7px}.admin-form input,.admin-form select,.admin-form textarea,.quote-form input,.quote-form select,.quote-form textarea{min-width:0}.admin-form button{grid-column:1/-1}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:18px 0}.toolbar select{max-width:220px}.admin-tabs{display:flex;gap:8px;overflow:auto;padding:8px 0 14px;border-bottom:1px solid #ddd}.admin-tabs button{white-space:nowrap}.tab-panel{padding-top:18px}.reservation,.data-card{background:#fff;border:1px solid #e8e5e0;padding:18px;margin:12px 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px}.reservation p,.data-card p{font-size:12px;color:#777;line-height:1.8;margin:5px 0}.reservation strong,.data-card strong{font-size:14px}.reservation-actions,.data-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.smallbtn{border:1px solid #d8d5d0;background:#fff;color:#222;padding:9px 11px;font:600 11px Manrope;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.smallbtn:hover{border-color:#e63946}.danger{color:#a22}.hidden{display:none!important}.notice{font-size:12px;color:#777;line-height:1.7}.muted{color:#777}.status-pill{display:inline-block;padding:5px 8px;background:#f1efeb;font-size:10px;text-transform:uppercase;letter-spacing:.04em}.status-pill.good{background:#e7f2e9;color:#246334}.status-pill.off{background:#f7e9e9;color:#9b3030}.settings-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.settings-grid label{font-size:11px;font-weight:700;display:flex;flex-direction:column;gap:7px}.settings-grid input{min-width:0}.toggle-line{display:flex;align-items:center;gap:9px;font-size:12px}.toggle-line input{width:auto}.quote-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.quote-form .wide{grid-column:1/-1}.quote-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.empty{padding:20px;color:#777;background:#fff;border:1px dashed #ddd;font-size:12px}.subheading{display:flex;justify-content:space-between;gap:15px;align-items:center;margin:18px 0 10px}.admin-header-note{max-width:700px;color:#777;font-size:12px;line-height:1.8}.inline-status{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.danger-zone{border-top:1px solid #e6d7d7;margin-top:14px;padding-top:12px}
+    @media(max-width:760px){.settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.reservation,.data-card{grid-template-columns:1fr}.reservation-actions,.data-actions{justify-content:flex-start}}
+    @media(max-width:520px){.admin{margin:30px auto;padding:0 14px 50px}.admin-card{padding:16px}.admin-form,.quote-form,.settings-grid{grid-template-columns:1fr}.quote-form .wide{grid-column:auto}.admin-form button{grid-column:auto}.toolbar select{max-width:none;width:100%}.subheading{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./"><span class="brand-mark">J</span><span>JONAS <b>PREMIUM</b><small>ADMINISTRACIÓN</small></span></a><a href="./">Volver a la web ↗</a></header>
+<main class="admin">
+  <p class="eyebrow">ÁREA PRIVADA · GESTIÓN EJECUTIVA</p><h1>Panel de administración</h1>
+  <p class="admin-header-note">Gestiona solicitudes, tarifas, rutas, suplementos y presupuestos desde un solo lugar. Los precios automáticos permanecen desactivados hasta que decidas publicarlos.</p>
+  <section id="login-panel" class="admin-card">
+    <h2>Acceso del administrador</h2><p class="notice">Inicia sesión con el usuario autorizado en Supabase.</p>
+    <form id="login-form" class="admin-form"><input name="email" type="email" placeholder="Correo electrónico" autocomplete="username" required><input name="password" type="password" placeholder="Contraseña" autocomplete="current-password" required><button class="button button-red" type="submit">Entrar</button></form><p id="login-msg" class="notice" role="status"></p>
+  </section>
+  <section id="dashboard" class="hidden">
+    <div class="toolbar"><button id="logout" class="smallbtn">Cerrar sesión</button><button id="refresh-all" class="smallbtn">Actualizar datos</button><span id="admin-msg" class="notice" role="status"></span></div>
+    <nav class="admin-tabs" aria-label="Secciones de administración">
+      <button class="smallbtn" data-tab="reservations">Solicitudes</button><button class="smallbtn" data-tab="pricing">Tarifas generales</button><button class="smallbtn" data-tab="routes">Rutas fijas</button><button class="smallbtn" data-tab="extras">Suplementos</button><button class="smallbtn" data-tab="quotes">Presupuestos</button>
+    </nav>
+    <section id="tab-reservations" class="tab-panel">
+      <div class="subheading"><div><h2>Solicitudes recibidas</h2><p class="notice">Las solicitudes no se eliminan desde este panel: puedes cancelarlas para conservar su historial.</p></div><select id="filter"><option value="all">Todos los estados</option><option value="pending">Pendientes</option><option value="confirmed">Confirmadas</option><option value="completed">Completadas</option><option value="cancelled">Canceladas</option></select></div>
+      <div id="reservations"></div>
+    </section>
+    <section id="tab-pricing" class="tab-panel hidden">
+      <div class="admin-card"><div class="subheading"><div><h2>Configuración general</h2><p class="notice">Puedes modificar estos importes cuando quieras. Guardarlos no activa el cálculo automático.</p></div><span id="engine-state" class="status-pill off">Motor desactivado</span></div>
+        <form id="pricing-form" class="settings-grid">
+          <label>Moneda<select name="currency"><option value="EUR">EUR · Euro</option></select></label>
+          <label>Precio base (€)<input name="base_price" type="number" min="0" step="0.01" required></label>
+          <label>Precio por kilómetro (€)<input name="price_per_km" type="number" min="0" step="0.01" required></label>
+          <label>Precio por minuto (€)<input name="price_per_minute" type="number" min="0" step="0.01" required></label>
+          <label>Precio mínimo (€)<input name="minimum_price" type="number" min="0" step="0.01" required></label>
+          <label>Redondeo (€)<input name="rounding_step" type="number" min="0.01" step="0.01" required></label>
+          <label class="toggle-line"><input name="pricing_enabled" type="checkbox" disabled> Activar precios automáticos (bloqueado durante esta fase)</label>
+          <button class="button button-red" type="submit">Guardar configuración</button>
+        </form><p id="pricing-msg" class="notice" role="status"></p>
+      </div>
+    </section>
+    <section id="tab-routes" class="tab-panel hidden">
+      <div class="admin-card"><h2 id="route-form-title">Añadir tarifa fija</h2><p class="notice">Introduce únicamente precios que hayas validado. Estas tarifas todavía no se muestran en la web pública.</p>
+        <form id="route-form" class="admin-form"><input name="origin" placeholder="Origen" required><input name="destination" placeholder="Destino" required><input name="price" type="number" min="0.01" step="0.01" placeholder="Precio en euros" required><input name="description" placeholder="Descripción (opcional)"><label class="toggle-line"><input name="is_active" type="checkbox" checked> Tarifa activa para futuras consultas internas</label><input name="route_id" type="hidden"><div class="quote-actions"><button class="button button-red" type="submit">Guardar ruta</button><button class="smallbtn hidden" id="route-cancel-edit" type="button">Cancelar edición</button></div></form><p id="routes-msg" class="notice" role="status"></p>
+      </div><div class="subheading"><h2>Tarifas guardadas</h2></div><div id="routes-list"></div>
+    </section>
+    <section id="tab-extras" class="tab-panel hidden">
+      <div class="admin-card"><h2>Suplementos y servicios adicionales</h2><p class="notice">Edita importes y activa cada suplemento cuando hayas decidido sus condiciones. Los importes porcentuales se expresan en porcentaje; los fijos, en euros.</p><div id="extras-list"></div><p id="extras-msg" class="notice" role="status"></p></div>
+    </section>
+    <section id="tab-quotes" class="tab-panel hidden">
+      <div class="admin-card"><h2>Preparar presupuesto</h2><p class="notice">Selecciona una solicitud, introduce el importe acordado y prepara una oferta personalizada. No se envía nada automáticamente.</p>
+        <form id="quote-form" class="quote-form">
+          <label class="wide">Solicitud asociada<select name="reservation_id" id="quote-reservation" required><option value="">Selecciona una solicitud</option></select></label>
+          <label>Tipo de presupuesto<select name="pricing_type"><option value="custom">Personalizado</option><option value="fixed">Tarifa fija</option><option value="calculated">Calculado (manual)</option></select></label>
+          <label>Importe total (€)<input name="total" type="number" min="0.01" step="0.01" required placeholder="Ej. 125.00"></label>
+          <label>Validez hasta<input name="valid_until" type="date"></label>
+          <label class="wide">Condiciones / detalles<textarea name="conditions" rows="3" placeholder="Incluye el servicio, equipaje, espera, peajes o condiciones acordadas..."></textarea></label>
+          <div class="wide quote-actions"><button class="button button-red" type="submit">Guardar presupuesto</button></div>
+        </form><p id="quote-msg" class="notice" role="status"></p>
+      </div>
+      <div class="subheading"><h2>Historial de presupuestos</h2></div><div id="quotes-list"></div>
+    </section>
+  </section>
+</main>
+<script type="module" src="./admin.js"></script>
+</body></html>
