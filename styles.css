@@ -491,3 +491,176 @@ footer{
     bottom:16px;
   }
 }
+
+
+/* ==========================================
+   JONAS PREMIUM - MEJORA DE LEGIBILIDAD
+   ========================================== */
+
+/* Texto general */
+body {
+  font-size: 18px !important;
+  line-height: 1.75 !important;
+}
+
+/* Menú y teléfono */
+.topbar nav {
+  font-size: 17px !important;
+}
+
+.top-phone {
+  font-size: 17px !important;
+}
+
+/* Marca */
+.brand {
+  font-size: 18px !important;
+}
+
+.brand small {
+  font-size: 13px !important;
+}
+
+/* Textos principales */
+.eyebrow {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+.intro {
+  font-size: 19px !important;
+  line-height: 1.9 !important;
+}
+
+.trust {
+  font-size: 15px !important;
+  line-height: 1.8 !important;
+}
+
+/* Títulos */
+.booking-heading h2,
+.section-top h2 {
+  font-size: clamp(36px, 4vw, 44px) !important;
+  line-height: 1.3 !important;
+}
+
+.hero h1 {
+  line-height: 1.2 !important;
+}
+
+/* Descripciones */
+.booking-heading > p,
+.section-top > p {
+  font-size: 17px !important;
+  line-height: 1.9 !important;
+}
+
+/* Formulario: etiquetas */
+.field label {
+  font-size: 17px !important;
+  line-height: 1.6 !important;
+}
+
+/* Formulario: campos */
+input,
+select,
+textarea {
+  font-size: 18px !important;
+  min-height: 56px !important;
+  padding: 15px 16px !important;
+  line-height: 1.5 !important;
+}
+
+/* Casilla de privacidad */
+.consent {
+  font-size: 16px !important;
+  line-height: 1.8 !important;
+}
+
+/* Botones */
+.button {
+  font-size: 17px !important;
+  min-height: 54px;
+  padding: 17px 25px !important;
+  line-height: 1.5 !important;
+}
+
+/* Enlaces */
+.text-link {
+  font-size: 16px !important;
+}
+
+/* Servicios */
+.service-grid article span {
+  font-size: 15px !important;
+}
+
+.service-grid h3 {
+  font-size: 21px !important;
+}
+
+.service-grid p {
+  font-size: 17px !important;
+  line-height: 1.9 !important;
+}
+
+/* Sección de experiencia */
+.experience > div > p:not(.eyebrow) {
+  font-size: 18px !important;
+  line-height: 1.9 !important;
+}
+
+/* Contacto */
+.contact-strip h2 {
+  font-size: 32px !important;
+}
+
+/* Pie de página */
+footer {
+  font-size: 15px !important;
+  line-height: 1.8 !important;
+}
+
+/* Ajustes adicionales para móviles */
+@media (max-width: 520px) {
+  body {
+    font-size: 18px !important;
+  }
+
+  .top-phone {
+    font-size: 15px !important;
+  }
+
+  .intro {
+    font-size: 18px !important;
+  }
+
+  .field label {
+    font-size: 17px !important;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 18px !important;
+    min-height: 58px !important;
+  }
+
+  .consent {
+    font-size: 15px !important;
+  }
+
+  .button {
+    font-size: 17px !important;
+    min-height: 56px;
+  }
+
+  .service-grid p {
+    font-size: 17px !important;
+  }
+
+  footer {
+    font-size: 15px !important;
+  }
+}
+
