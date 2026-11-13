@@ -1,69 +1,537 @@
+
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#151515">
   <meta name="description" content="JONAS PREMIUM. Transporte ejecutivo desde Cantabria a cualquier destino de España.">
   <title>JONAS PREMIUM | Transporte ejecutivo</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
+
+  <style>
+    .language-select {
+      min-height: 42px;
+      padding: 8px 12px;
+      border: 1px solid #dedbd7;
+      border-radius: 5px;
+      background: #fff;
+      color: #171717;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .header-language { display:flex; align-items:center; }
+    .field input, .field select, .field textarea {
+      font-size: 17px;
+    }
+    .field label { font-size: 16px; font-weight: 700; }
+    .consent { font-size: 15px; line-height: 1.7; }
+    .form-bottom p { font-size: 15px; line-height: 1.6; }
+    .button { min-height: 54px; font-size: 16px; }
+    .service-grid article p { font-size: 16px; line-height: 1.8; }
+    @media(max-width:760px) {
+      .header-language { margin: 8px 0; }
+      .language-select { min-height: 46px; }
+      .field input, .field select, .field textarea { font-size: 16px; }
+      .field label { font-size: 16px; }
+      .consent { font-size: 14px; }
+    }
+  </style>
 </head>
+
 <body>
+
 <header class="topbar">
-  <a class="brand" href="#"><span class="brand-mark">J</span><span>JONAS <b>PREMIUM</b><small>TRANSPORTE EJECUTIVO</small></span></a>
-  <nav><a href="#servicios">Servicios</a><a href="#experiencia">Experiencia</a><a href="#contacto">Contacto</a></nav>
+  <a class="brand" href="#">
+    <span class="brand-mark">J</span>
+    <span>JONAS <b>PREMIUM</b><small>TRANSPORTE EJECUTIVO</small></span>
+  </a>
+
+  <nav>
+    <a href="#servicios" data-site-i18n="navServices">Servicios</a>
+    <a href="#experiencia" data-site-i18n="navExperience">Experiencia</a>
+    <a href="#contacto" data-site-i18n="navContact">Contacto</a>
+  </nav>
+
+  <div class="header-language">
+    <select id="language-select" class="language-select" aria-label="Language">
+      <option value="es">ES</option>
+      <option value="en">EN</option>
+      <option value="fr">FR</option>
+    </select>
+  </div>
+
   <a class="top-phone" href="tel:+34614180881">+34 614 18 08 81</a>
 </header>
+
 <main>
+
 <section class="hero">
   <div class="hero-copy">
     <p class="eyebrow"><span></span> CANTABRIA · ESPAÑA</p>
-    <h1>El viaje también<br>forma parte del <em>destino.</em></h1>
-    <p class="intro">Transporte privado y ejecutivo desde Cantabria a cualquier punto de España. Discreción, confort y atención personal en cada trayecto.</p>
-    <div class="hero-actions"><a class="button button-red" href="#reserva">Solicitar viaje <span>↗</span></a><a class="text-link" href="https://wa.me/34614180881?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20traslado." target="_blank" rel="noopener">Hablar por WhatsApp ↗</a></div>
-    <div class="trust"><span>✦ Servicio personalizado</span><span>⌁ Viajes nacionales</span><span>◷ Reserva anticipada</span></div>
+
+    <h1 data-site-html="heroTitle">
+      El viaje también<br>forma parte del <em>destino.</em>
+    </h1>
+
+    <p class="intro" data-site-i18n="heroIntro">
+      Transporte privado y ejecutivo desde Cantabria a cualquier punto de España. Discreción, confort y atención personal en cada trayecto.
+    </p>
+
+    <div class="hero-actions">
+      <a class="button button-red" href="#reserva">
+        <span data-site-i18n="requestTrip">Solicitar viaje</span> <span>↗</span>
+      </a>
+
+      <a class="text-link"
+         href="https://wa.me/34614180881?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20traslado."
+         target="_blank" rel="noopener">
+        <span data-site-i18n="whatsappTalk">Hablar por WhatsApp</span> ↗
+      </a>
+    </div>
+
+    <div class="trust">
+      <span data-site-i18n="trustPersonal">✦ Servicio personalizado</span>
+      <span data-site-i18n="trustNational">⌁ Viajes nacionales</span>
+      <span data-site-i18n="trustBooking">◷ Reserva anticipada</span>
+    </div>
   </div>
+
   <div class="hero-visual">
-    <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1500&q=85" alt="Costa y paisaje del norte de España">
-    <div class="image-caption"><span>CANTABRIA, NORTE DE ESPAÑA</span><b>Un servicio a tu altura.</b></div>
-    <div class="vehicle-note"><span class="dot"></span> XPENG G6 · GRIS</div>
+    <img
+      src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1500&q=85"
+      alt="Paisaje del norte de España"
+      loading="eager">
+
+    <div class="image-caption">
+      <span data-site-i18n="imageLocation">CANTABRIA, NORTE DE ESPAÑA</span>
+      <b data-site-i18n="imageCaption">Un servicio a tu altura.</b>
+    </div>
+
+    <div class="vehicle-note">
+      <span class="dot"></span> XPENG G6 · GRIS
+    </div>
   </div>
 </section>
+
 <section class="booking-wrap" id="reserva">
-  <div class="booking-heading"><div><p class="eyebrow">TU PRÓXIMO TRAYECTO</p><h2>Cuéntanos dónde<br>quieres ir.</h2></div><p>Completa la solicitud y nos pondremos en contacto contigo para confirmar disponibilidad y presupuesto.</p></div>
-  <form id="booking-form" class="booking-form">
-    <div class="field"><label for="service">Tipo de servicio</label><select id="service" name="service" required><option value="">Selecciona una opción</option><option>Traslado aeropuerto / estación</option><option>Hotel y recogida</option><option>Empresas</option><option>Bodas y eventos</option><option>Servicio por horas</option><option>Viaje interurbano / nacional</option><option>Otro servicio</option></select></div>
-    <div class="field"><label for="origin">Origen</label><input id="origin" name="origin" placeholder="Ciudad, dirección o aeropuerto" required></div>
-    <div class="field"><label for="destination">Destino</label><input id="destination" name="destination" placeholder="¿A dónde te llevamos?" required></div>
-    <div id="route-price-panel" class="field field-wide" role="status" aria-live="polite" hidden style="padding:18px 20px;border:1px solid #e9e7e4;background:#faf9f7;gap:7px">
-      <strong id="route-price-title" style="font-size:13px"></strong>
-      <p id="route-price-copy" style="margin:0;color:#777;font-size:11px;line-height:1.7"></p>
+
+  <div class="booking-heading">
+    <div>
+      <p class="eyebrow" data-site-i18n="bookingEyebrow">TU PRÓXIMO TRAYECTO</p>
+      <h2 data-site-html="bookingTitle">Cuéntanos dónde<br>quieres ir.</h2>
     </div>
-    <div class="field"><label for="date">Fecha</label><input id="date" name="date" type="date" required></div>
-    <div class="field"><label for="time">Hora de recogida</label><input id="time" name="time" type="time" required></div>
-    <div class="field"><label for="passengers">Pasajeros</label><select id="passengers" name="passengers"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
-    <div class="field"><label for="name">Nombre y apellidos</label><input id="name" name="name" autocomplete="name" required></div>
-    <div class="field"><label for="phone">Teléfono</label><input id="phone" name="phone" type="tel" autocomplete="tel" required></div>
-    <div class="field"><label for="email">Correo electrónico</label><input id="email" name="email" type="email" autocomplete="email"></div>
-    <div class="field field-wide"><label for="notes">Detalles adicionales <span>(opcional)</span></label><textarea id="notes" name="notes" rows="3" placeholder="Equipaje, vuelo, silla infantil u otra información..."></textarea></div>
-    <label class="consent field-wide"><input type="checkbox" required> He leído y acepto la política de privacidad y el tratamiento de mis datos para gestionar esta solicitud.</label>
-    <div class="form-bottom field-wide"><p id="form-message" role="status">Solicitud sin compromiso. La reserva queda pendiente de confirmación.</p><button class="button button-red" type="submit">Enviar solicitud <span>↗</span></button></div>
+
+    <p data-site-i18n="bookingIntro">
+      Completa la solicitud y nos pondremos en contacto contigo para confirmar disponibilidad y presupuesto.
+    </p>
+  </div>
+
+  <form id="booking-form" class="booking-form">
+
+    <div class="field">
+      <label for="service" data-site-i18n="serviceLabel">Tipo de servicio</label>
+      <select id="service" name="service" required>
+        <option value="" data-site-i18n="serviceChoose">Selecciona una opción</option>
+        <option data-site-i18n="serviceAirport">Traslado aeropuerto / estación</option>
+        <option data-site-i18n="serviceHotel">Hotel y recogida</option>
+        <option data-site-i18n="serviceBusiness">Empresas</option>
+        <option data-site-i18n="serviceEvents">Bodas y eventos</option>
+        <option data-site-i18n="serviceHours">Servicio por horas</option>
+        <option data-site-i18n="serviceNational">Viaje interurbano / nacional</option>
+        <option data-site-i18n="serviceOther">Otro servicio</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="origin" data-site-i18n="originLabel">Origen</label>
+      <input id="origin" name="origin"
+        placeholder="Ciudad, dirección o aeropuerto"
+        data-site-placeholder="originPlaceholder" required>
+    </div>
+
+    <div class="field">
+      <label for="destination" data-site-i18n="destinationLabel">Destino</label>
+      <input id="destination" name="destination"
+        placeholder="¿A dónde te llevamos?"
+        data-site-placeholder="destinationPlaceholder" required>
+    </div>
+
+    <div id="route-price-panel" class="field field-wide"
+      role="status" aria-live="polite" hidden
+      style="padding:18px 20px;border:1px solid #e9e7e4;background:#faf9f7;gap:7px">
+      <strong id="route-price-title" style="font-size:15px"></strong>
+      <p id="route-price-copy" style="margin:0;color:#777;font-size:14px;line-height:1.7"></p>
+    </div>
+
+    <div class="field">
+      <label for="date" data-site-i18n="dateLabel">Fecha</label>
+      <input id="date" name="date" type="date" required>
+    </div>
+
+    <div class="field">
+      <label for="time" data-site-i18n="timeLabel">Hora de recogida</label>
+      <input id="time" name="time" type="time" required>
+    </div>
+
+    <div class="field">
+      <label for="passengers" data-site-i18n="passengersLabel">Pasajeros</label>
+      <select id="passengers" name="passengers">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="name" data-site-i18n="nameLabel">Nombre y apellidos</label>
+      <input id="name" name="name" autocomplete="name" required>
+    </div>
+
+    <div class="field">
+      <label for="phone" data-site-i18n="phoneLabel">Teléfono</label>
+      <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+    </div>
+
+    <div class="field">
+      <label for="email" data-site-i18n="emailLabel">Correo electrónico</label>
+      <input id="email" name="email" type="email" autocomplete="email">
+    </div>
+
+    <div class="field field-wide">
+      <label for="notes">
+        <span data-site-i18n="notesLabel">Detalles adicionales</span>
+        <span data-site-i18n="optional">(opcional)</span>
+      </label>
+      <textarea id="notes" name="notes" rows="3"
+        placeholder="Equipaje, vuelo, silla infantil u otra información..."
+        data-site-placeholder="notesPlaceholder"></textarea>
+    </div>
+
+    <label class="consent field-wide">
+      <input type="checkbox" required>
+      <span data-site-i18n="privacyConsent">
+        He leído y acepto la política de privacidad y el tratamiento de mis datos para gestionar esta solicitud.
+      </span>
+    </label>
+
+    <div class="form-bottom field-wide">
+      <p id="form-message" role="status" data-site-i18n="formPending">
+        Solicitud sin compromiso. La reserva queda pendiente de confirmación.
+      </p>
+
+      <button class="button button-red" type="submit">
+        <span data-site-i18n="sendRequest">Enviar solicitud</span> <span>↗</span>
+      </button>
+    </div>
+
   </form>
 </section>
-<section class="services" id="servicios"><div class="section-top"><div><p class="eyebrow">SERVICIO A MEDIDA</p><h2>Viajar con otra<br>perspectiva.</h2></div><p>Un único punto de contacto. Un servicio cuidado de principio a fin, tanto en Cantabria como en cualquier destino nacional.</p></div>
+
+<section class="services" id="servicios">
+
+  <div class="section-top">
+    <div>
+      <p class="eyebrow" data-site-i18n="servicesEyebrow">SERVICIO A MEDIDA</p>
+      <h2 data-site-html="servicesTitle">Viajar con otra<br>perspectiva.</h2>
+    </div>
+
+    <p data-site-i18n="servicesIntro">
+      Un único punto de contacto. Un servicio cuidado de principio a fin, tanto en Cantabria como en cualquier destino nacional.
+    </p>
+  </div>
+
   <div class="service-grid">
-    <article><span>01</span><h3>Aeropuertos & estaciones</h3><p>Recogidas y traslados coordinados, con atención a los horarios de tu viaje.</p></article>
-    <article><span>02</span><h3>Empresas & eventos</h3><p>Desplazamientos profesionales, reuniones, celebraciones y ocasiones especiales.</p></article>
-    <article><span>03</span><h3>Viajes nacionales</h3><p>Trayectos interurbanos y largos recorridos desde Cantabria a toda España.</p></article>
-    <article><span>04</span><h3>Servicio por horas</h3><p>Flexibilidad, discreción y un vehículo a tu disposición según tus necesidades.</p></article>
+
+    <article>
+      <span>01</span>
+      <h3 data-site-i18n="serviceCard1Title">Aeropuertos & estaciones</h3>
+      <p data-site-i18n="serviceCard1Text">
+        Recogidas y traslados coordinados, con atención a los horarios de tu viaje.
+      </p>
+    </article>
+
+    <article>
+      <span>02</span>
+      <h3 data-site-i18n="serviceCard2Title">Empresas & eventos</h3>
+      <p data-site-i18n="serviceCard2Text">
+        Desplazamientos profesionales, reuniones, celebraciones y ocasiones especiales.
+      </p>
+    </article>
+
+    <article>
+      <span>03</span>
+      <h3 data-site-i18n="serviceCard3Title">Viajes nacionales</h3>
+      <p data-site-i18n="serviceCard3Text">
+        Trayectos interurbanos y largos recorridos desde Cantabria a toda España.
+      </p>
+    </article>
+
+    <article>
+      <span>04</span>
+      <h3 data-site-i18n="serviceCard4Title">Servicio por horas</h3>
+      <p data-site-i18n="serviceCard4Text">
+        Flexibilidad, discreción y un vehículo a tu disposición según tus necesidades.
+      </p>
+    </article>
+
   </div>
 </section>
-<section class="experience" id="experiencia"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=85" alt="Paisaje natural del norte de España"><div><p class="eyebrow">NUESTRO ORIGEN, TU DESTINO</p><h2>La esencia del norte.<br><em>La libertad de llegar más lejos.</em></h2><p>Con base en Cantabria y vocación nacional, JONAS PREMIUM conecta personas y destinos con un trato cercano y una experiencia ejecutiva.</p><a class="text-link light" href="#reserva">Planifica tu próximo viaje ↗</a></div></section>
-<section class="contact-strip" id="contacto"><div><p class="eyebrow">ATENCIÓN PERSONAL</p><h2>Hablemos de tu próximo viaje.</h2></div><div class="contact-actions"><a class="button button-light" href="tel:+34614180881">Llamar ahora</a><a class="button button-red" href="https://wa.me/34614180881?text=Hola%2C%20quiero%20consultar%20un%20viaje." target="_blank" rel="noopener">WhatsApp ↗</a></div></section>
+
+<section class="experience" id="experiencia">
+
+  <img
+    src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=85"
+    alt="Paisaje natural"
+    loading="lazy">
+
+  <div>
+    <p class="eyebrow" data-site-i18n="experienceEyebrow">NUESTRO ORIGEN, TU DESTINO</p>
+
+    <h2 data-site-html="experienceTitle">
+      La esencia del norte.<br>
+      <em>La libertad de llegar más lejos.</em>
+    </h2>
+
+    <p data-site-i18n="experienceText">
+      Con base en Cantabria y vocación nacional, JONAS PREMIUM conecta personas y destinos con un trato cercano y una experiencia ejecutiva.
+    </p>
+
+    <a class="text-link light" href="#reserva" data-site-i18n="planTrip">
+      Planifica tu próximo viaje ↗
+    </a>
+  </div>
+</section>
+
+<section class="contact-strip" id="contacto">
+
+  <div>
+    <p class="eyebrow" data-site-i18n="contactEyebrow">ATENCIÓN PERSONAL</p>
+    <h2 data-site-i18n="contactTitle">Hablemos de tu próximo viaje.</h2>
+  </div>
+
+  <div class="contact-actions">
+    <a class="button button-light" href="tel:+34614180881" data-site-i18n="callNow">
+      Llamar ahora
+    </a>
+
+    <a class="button button-red"
+      href="https://wa.me/34614180881?text=Hola%2C%20quiero%20consultar%20un%20viaje."
+      target="_blank" rel="noopener">
+      WhatsApp ↗
+    </a>
+  </div>
+
+</section>
+
 </main>
-<footer><a class="brand brand-footer" href="#"><span class="brand-mark">J</span><span>JONAS <b>PREMIUM</b><small>TRANSPORTE EJECUTIVO</small></span></a><p>Desde Cantabria · Viajes por toda España</p><span>© <span id="year"></span> JONAS PREMIUM</span><a href="./privacidad.html">Privacidad</a><a href="./admin.html">Acceso administración</a></footer>
-<a class="whatsapp-float" href="https://wa.me/34614180881?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20viaje." target="_blank" rel="noopener" aria-label="Abrir WhatsApp">WA</a>
+
+<footer>
+  <a class="brand brand-footer" href="#">
+    <span class="brand-mark">J</span>
+    <span>JONAS <b>PREMIUM</b><small>TRANSPORTE EJECUTIVO</small></span>
+  </a>
+
+  <p data-site-i18n="footerText">Desde Cantabria · Viajes por toda España</p>
+  <span>© <span id="year"></span> JONAS PREMIUM</span>
+  <a href="./privacidad.html" data-site-i18n="privacyLink">Privacidad</a>
+  <a href="./admin.html" data-site-i18n="adminLink">Acceso administración</a>
+</footer>
+
+<a class="whatsapp-float"
+  href="https://wa.me/34614180881?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20viaje."
+  target="_blank" rel="noopener" aria-label="Abrir WhatsApp">WA</a>
+
+<script>
+const siteTranslations = {
+  es: {
+    navServices:"Servicios", navExperience:"Experiencia", navContact:"Contacto",
+    heroTitle:"El viaje también<br>forma parte del <em>destino.</em>",
+    heroIntro:"Transporte privado y ejecutivo desde Cantabria a cualquier punto de España. Discreción, confort y atención personal en cada trayecto.",
+    requestTrip:"Solicitar viaje", whatsappTalk:"Hablar por WhatsApp",
+    trustPersonal:"✦ Servicio personalizado", trustNational:"⌁ Viajes nacionales", trustBooking:"◷ Reserva anticipada",
+    imageLocation:"CANTABRIA, NORTE DE ESPAÑA", imageCaption:"Un servicio a tu altura.",
+    bookingEyebrow:"TU PRÓXIMO TRAYECTO", bookingTitle:"Cuéntanos dónde<br>quieres ir.",
+    bookingIntro:"Completa la solicitud y nos pondremos en contacto contigo para confirmar disponibilidad y presupuesto.",
+    serviceLabel:"Tipo de servicio", serviceChoose:"Selecciona una opción",
+    serviceAirport:"Traslado aeropuerto / estación", serviceHotel:"Hotel y recogida",
+    serviceBusiness:"Empresas", serviceEvents:"Bodas y eventos",
+    serviceHours:"Servicio por horas", serviceNational:"Viaje interurbano / nacional",
+    serviceOther:"Otro servicio", originLabel:"Origen", destinationLabel:"Destino",
+    originPlaceholder:"Ciudad, dirección o aeropuerto",
+    destinationPlaceholder:"¿A dónde te llevamos?",
+    dateLabel:"Fecha", timeLabel:"Hora de recogida", passengersLabel:"Pasajeros",
+    nameLabel:"Nombre y apellidos", phoneLabel:"Teléfono", emailLabel:"Correo electrónico",
+    notesLabel:"Detalles adicionales", optional:"(opcional)",
+    notesPlaceholder:"Equipaje, vuelo, silla infantil u otra información...",
+    privacyConsent:"He leído y acepto la política de privacidad y el tratamiento de mis datos para gestionar esta solicitud.",
+    formPending:"Solicitud sin compromiso. La reserva queda pendiente de confirmación.",
+    sendRequest:"Enviar solicitud", servicesEyebrow:"SERVICIO A MEDIDA",
+    servicesTitle:"Viajar con otra<br>perspectiva.",
+    servicesIntro:"Un único punto de contacto. Un servicio cuidado de principio a fin, tanto en Cantabria como en cualquier destino nacional.",
+    serviceCard1Title:"Aeropuertos & estaciones",
+    serviceCard1Text:"Recogidas y traslados coordinados, con atención a los horarios de tu viaje.",
+    serviceCard2Title:"Empresas & eventos",
+    serviceCard2Text:"Desplazamientos profesionales, reuniones, celebraciones y ocasiones especiales.",
+    serviceCard3Title:"Viajes nacionales",
+    serviceCard3Text:"Trayectos interurbanos y largos recorridos desde Cantabria a toda España.",
+    serviceCard4Title:"Servicio por horas",
+    serviceCard4Text:"Flexibilidad, discreción y un vehículo a tu disposición según tus necesidades.",
+    experienceEyebrow:"NUESTRO ORIGEN, TU DESTINO",
+    experienceTitle:"La esencia del norte.<br><em>La libertad de llegar más lejos.</em>",
+    experienceText:"Con base en Cantabria y vocación nacional, JONAS PREMIUM conecta personas y destinos con un trato cercano y una experiencia ejecutiva.",
+    planTrip:"Planifica tu próximo viaje ↗", contactEyebrow:"ATENCIÓN PERSONAL",
+    contactTitle:"Hablemos de tu próximo viaje.", callNow:"Llamar ahora",
+    footerText:"Desde Cantabria · Viajes por toda España",
+    privacyLink:"Privacidad", adminLink:"Acceso administración"
+  },
+
+  en: {
+    navServices:"Services", navExperience:"The experience", navContact:"Contact",
+    heroTitle:"The journey is also<br>part of the <em>destination.</em>",
+    heroIntro:"Private executive transport from Cantabria to destinations throughout Spain. Discretion, comfort and personal attention on every journey.",
+    requestTrip:"Book a journey", whatsappTalk:"Chat on WhatsApp",
+    trustPersonal:"✦ Personal service", trustNational:"⌁ Nationwide journeys", trustBooking:"◷ Advance booking",
+    imageLocation:"CANTABRIA, NORTHERN SPAIN", imageCaption:"A service above expectations.",
+    bookingEyebrow:"YOUR NEXT JOURNEY", bookingTitle:"Tell us where<br>you would like to go.",
+    bookingIntro:"Complete the request form and we will contact you to confirm availability and provide a quote.",
+    serviceLabel:"Service type", serviceChoose:"Choose an option",
+    serviceAirport:"Airport / station transfer", serviceHotel:"Hotel pickup",
+    serviceBusiness:"Business travel", serviceEvents:"Weddings and events",
+    serviceHours:"Hourly service", serviceNational:"Intercity / nationwide journey",
+    serviceOther:"Other service", originLabel:"Pickup location", destinationLabel:"Destination",
+    originPlaceholder:"City, address or airport",
+    destinationPlaceholder:"Where would you like to go?",
+    dateLabel:"Date", timeLabel:"Pickup time", passengersLabel:"Passengers",
+    nameLabel:"Full name", phoneLabel:"Phone number", emailLabel:"Email address",
+    notesLabel:"Additional details", optional:"(optional)",
+    notesPlaceholder:"Luggage, flight details, child seat or other information...",
+    privacyConsent:"I have read and accept the privacy policy and the processing of my data to manage this request.",
+    formPending:"No-obligation request. Your booking is pending confirmation.",
+    sendRequest:"Send request", servicesEyebrow:"TAILORED SERVICE",
+    servicesTitle:"Travel with a different<br>perspective.",
+    servicesIntro:"One point of contact. A carefully managed service from beginning to end, in Cantabria and throughout Spain.",
+    serviceCard1Title:"Airports & stations",
+    serviceCard1Text:"Coordinated pickups and transfers, with attention to your travel schedule.",
+    serviceCard2Title:"Business & events",
+    serviceCard2Text:"Professional journeys, meetings, celebrations and special occasions.",
+    serviceCard3Title:"Nationwide journeys",
+    serviceCard3Text:"Intercity transfers and long-distance journeys from Cantabria throughout Spain.",
+    serviceCard4Title:"Hourly service",
+    serviceCard4Text:"Flexibility, discretion and a vehicle at your disposal to suit your needs.",
+    experienceEyebrow:"OUR HOME, YOUR DESTINATION",
+    experienceTitle:"The spirit of the north.<br><em>The freedom to go further.</em>",
+    experienceText:"Based in Cantabria and serving destinations nationwide, JONAS PREMIUM connects people and places with personal attention and an executive travel experience.",
+    planTrip:"Plan your next journey ↗", contactEyebrow:"PERSONAL SERVICE",
+    contactTitle:"Let's talk about your next journey.", callNow:"Call now",
+    footerText:"Based in Cantabria · Nationwide journeys",
+    privacyLink:"Privacy", adminLink:"Administration"
+  },
+
+  fr: {
+    navServices:"Services", navExperience:"Expérience", navContact:"Contact",
+    heroTitle:"Le voyage fait aussi<br>partie de la <em>destination.</em>",
+    heroIntro:"Transport privé et exécutif depuis la Cantabrie vers toutes les destinations d'Espagne. Discrétion, confort et attention personnalisée à chaque trajet.",
+    requestTrip:"Demander un trajet", whatsappTalk:"Contacter sur WhatsApp",
+    trustPersonal:"✦ Service personnalisé", trustNational:"⌁ Voyages nationaux", trustBooking:"◷ Réservation à l'avance",
+    imageLocation:"CANTABRIE, NORD DE L'ESPAGNE", imageCaption:"Un service à votre hauteur.",
+    bookingEyebrow:"VOTRE PROCHAIN TRAJET", bookingTitle:"Indiquez-nous où<br>vous souhaitez aller.",
+    bookingIntro:"Remplissez la demande et nous vous contacterons pour confirmer la disponibilité et vous proposer un devis.",
+    serviceLabel:"Type de service", serviceChoose:"Choisissez une option",
+    serviceAirport:"Transfert aéroport / gare", serviceHotel:"Hôtel et prise en charge",
+    serviceBusiness:"Entreprises", serviceEvents:"Mariages et événements",
+    serviceHours:"Service à l'heure", serviceNational:"Trajet interurbain / national",
+    serviceOther:"Autre service", originLabel:"Départ", destinationLabel:"Destination",
+    originPlaceholder:"Ville, adresse ou aéroport",
+    destinationPlaceholder:"Où souhaitez-vous aller ?",
+    dateLabel:"Date", timeLabel:"Heure de prise en charge", passengersLabel:"Passagers",
+    nameLabel:"Nom et prénom", phoneLabel:"Téléphone", emailLabel:"Adresse e-mail",
+    notesLabel:"Informations complémentaires", optional:"(facultatif)",
+    notesPlaceholder:"Bagages, vol, siège enfant ou toute autre information...",
+    privacyConsent:"J'ai lu et j'accepte la politique de confidentialité et le traitement de mes données pour gérer cette demande.",
+    formPending:"Demande sans engagement. La réservation reste en attente de confirmation.",
+    sendRequest:"Envoyer la demande", servicesEyebrow:"SERVICE SUR MESURE",
+    servicesTitle:"Voyager avec une autre<br>perspective.",
+    servicesIntro:"Un seul interlocuteur. Un service soigné du début à la fin, en Cantabrie comme dans toute l'Espagne.",
+    serviceCard1Title:"Aéroports & gares",
+    serviceCard1Text:"Prises en charge et transferts coordonnés, adaptés aux horaires de votre voyage.",
+    serviceCard2Title:"Entreprises & événements",
+    serviceCard2Text:"Déplacements professionnels, réunions, célébrations et occasions spéciales.",
+    serviceCard3Title:"Voyages nationaux",
+    serviceCard3Text:"Trajets interurbains et longues distances depuis la Cantabrie vers toute l'Espagne.",
+    serviceCard4Title:"Service à l'heure",
+    serviceCard4Text:"Flexibilité, discrétion et véhicule à votre disposition selon vos besoins.",
+    experienceEyebrow:"NOTRE ORIGINE, VOTRE DESTINATION",
+    experienceTitle:"L'essence du nord.<br><em>La liberté d'aller plus loin.</em>",
+    experienceText:"Basé en Cantabrie et présent dans toute l'Espagne, JONAS PREMIUM relie les personnes et les destinations avec une attention personnalisée et une expérience exécutive.",
+    planTrip:"Préparez votre prochain voyage ↗", contactEyebrow:"SERVICE PERSONNALISÉ",
+    contactTitle:"Parlons de votre prochain voyage.", callNow:"Appeler maintenant",
+    footerText:"Depuis la Cantabrie · Voyages dans toute l'Espagne",
+    privacyLink:"Confidentialité", adminLink:"Administration"
+  }
+};
+
+function applySiteLanguage(language) {
+  const selected = siteTranslations[language] ? language : "es";
+  document.documentElement.lang = selected;
+
+  document.querySelectorAll("[data-site-i18n]").forEach(element => {
+    const key = element.dataset.siteI18n;
+    if (siteTranslations[selected][key] !== undefined) {
+      element.textContent = siteTranslations[selected][key];
+    }
+  });
+
+  document.querySelectorAll("[data-site-html]").forEach(element => {
+    const key = element.dataset.siteHtml;
+    if (siteTranslations[selected][key] !== undefined) {
+      element.innerHTML = siteTranslations[selected][key];
+    }
+  });
+
+  document.querySelectorAll("[data-site-placeholder]").forEach(element => {
+    const key = element.dataset.sitePlaceholder;
+    if (siteTranslations[selected][key] !== undefined) {
+      element.placeholder = siteTranslations[selected][key];
+    }
+  });
+
+  const selector = document.querySelector("#language-select");
+  if (selector) selector.value = selected;
+
+  try {
+    localStorage.setItem("jonas-language", selected);
+  } catch (error) {}
+}
+
+const languageSelector = document.querySelector("#language-select");
+
+let savedLanguage = "es";
+try {
+  savedLanguage = localStorage.getItem("jonas-language") || "es";
+} catch (error) {}
+
+applySiteLanguage(savedLanguage);
+
+if (languageSelector) {
+  languageSelector.addEventListener("change", event => {
+    applySiteLanguage(event.target.value);
+  });
+}
+
+const yearElement = document.querySelector("#year");
+if (yearElement) yearElement.textContent = new Date().getFullYear();
+</script>
+
 <script type="module" src="./app.js"></script>
-</body></html>
+
+</body>
+</html>
