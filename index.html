@@ -37,6 +37,10 @@
     <div class="field"><label for="service">Tipo de servicio</label><select id="service" name="service" required><option value="">Selecciona una opción</option><option>Traslado aeropuerto / estación</option><option>Hotel y recogida</option><option>Empresas</option><option>Bodas y eventos</option><option>Servicio por horas</option><option>Viaje interurbano / nacional</option><option>Otro servicio</option></select></div>
     <div class="field"><label for="origin">Origen</label><input id="origin" name="origin" placeholder="Ciudad, dirección o aeropuerto" required></div>
     <div class="field"><label for="destination">Destino</label><input id="destination" name="destination" placeholder="¿A dónde te llevamos?" required></div>
+    <div id="route-price-panel" class="field field-wide" role="status" aria-live="polite" hidden style="padding:18px 20px;border:1px solid #e9e7e4;background:#faf9f7;gap:7px">
+      <strong id="route-price-title" style="font-size:13px"></strong>
+      <p id="route-price-copy" style="margin:0;color:#777;font-size:11px;line-height:1.7"></p>
+    </div>
     <div class="field"><label for="date">Fecha</label><input id="date" name="date" type="date" required></div>
     <div class="field"><label for="time">Hora de recogida</label><input id="time" name="time" type="time" required></div>
     <div class="field"><label for="passengers">Pasajeros</label><select id="passengers" name="passengers"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
