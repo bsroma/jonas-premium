@@ -964,6 +964,136 @@
     padding: 15px;
   }
 }
+    /* =====================================
+   JONAS PREMIUM - DETALLES DE SOLICITUD
+   ===================================== */
+
+.reservation-label {
+  display: block;
+  margin-bottom: 7px;
+  color: #999;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.reservation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.reservation-header h3 {
+  margin: 0;
+  color: #171717;
+  font-size: 17px;
+}
+
+.reservation-route {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f8f8f8;
+  border: 1px solid #eee;
+  border-radius: 10px;
+}
+
+.route-point {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.route-point small,
+.detail-item small {
+  display: block;
+  margin-bottom: 5px;
+  color: #999;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .8px;
+}
+
+.route-point strong {
+  display: block;
+  color: #222;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.route-dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 10px;
+  border-radius: 50%;
+}
+
+.origin-dot {
+  background: #e63946;
+}
+
+.destination-dot {
+  background: #171717;
+}
+
+.route-line {
+  height: 19px;
+  margin: 2px 0 2px 4px;
+  border-left: 1px dashed #bbb;
+}
+
+.reservation-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+  padding: 5px 2px 18px;
+}
+
+.detail-item strong {
+  display: block;
+  color: #333;
+  font-size: 12px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.detail-email {
+  grid-column: 1 / -1;
+}
+
+.reservation-notes {
+  margin: 0 0 18px;
+  padding: 13px 15px;
+  background: #fff9f8;
+  border-left: 3px solid #e63946;
+  border-radius: 5px;
+}
+
+.reservation-notes strong {
+  font-size: 11px;
+}
+
+.reservation-notes p {
+  margin: 6px 0 0;
+  color: #666;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+@media(max-width:520px) {
+  .reservation-header {
+    align-items: flex-start;
+  }
+
+  .reservation-details {
+    gap: 15px 10px;
+  }
+
+  .reservation-route {
+    padding: 16px;
+  }
+}
 
   </style>
 </head>
