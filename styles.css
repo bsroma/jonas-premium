@@ -664,3 +664,377 @@ footer {
   }
 }
 
+/* ==========================================
+   JONAS PREMIUM — ACABADO VISUAL
+   ========================================== */
+
+/* Cabecera */
+.topbar {
+  min-height: 82px;
+  gap: 24px;
+}
+
+.topbar nav a {
+  transition: color .2s ease;
+}
+
+.topbar nav a:hover {
+  color: var(--red);
+}
+
+.brand {
+  flex-shrink: 0;
+}
+
+.top-phone {
+  white-space: nowrap;
+}
+
+/* Portada */
+.hero {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-top: 76px;
+  padding-bottom: 82px;
+  gap: 5%;
+}
+
+.hero-copy {
+  min-width: 0;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 4.5vw, 64px);
+  letter-spacing: -2.8px;
+}
+
+.hero-visual {
+  height: clamp(350px, 37vw, 510px);
+  overflow: hidden;
+  background: #171717;
+}
+
+.hero-visual > img {
+  transition: transform .7s ease;
+  object-position: center center;
+}
+
+.hero-visual:hover > img {
+  transform: scale(1.025);
+}
+
+.vehicle-note {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 5px 20px #0002;
+}
+
+.image-caption {
+  right: 25px;
+}
+
+/* Formulario */
+.booking-wrap {
+  padding-top: 78px;
+  padding-bottom: 82px;
+}
+
+.booking-form {
+  max-width: 1120px;
+  margin: 0 auto;
+  box-shadow: 0 12px 40px rgba(0,0,0,.035);
+}
+
+.booking-heading,
+.section-top {
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Servicios */
+.services {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.service-grid article {
+  transition: background .2s ease;
+}
+
+.service-grid article span {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.service-grid h3 {
+  line-height: 1.4;
+}
+
+/* Experiencia y Cantabria */
+.experience {
+  overflow: hidden;
+  background: #171717;
+}
+
+.experience > img {
+  object-position: center 52%;
+  transition: transform .8s ease;
+}
+
+.experience:after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(10,10,10,.82) 0%,
+      rgba(10,10,10,.55) 55%,
+      rgba(10,10,10,.12) 100%
+    );
+}
+
+.experience > div {
+  width: min(550px, 80%);
+}
+
+.experience h2 {
+  margin: 12px 0 20px;
+}
+
+/* Contacto */
+.contact-strip {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-top: 65px;
+  padding-bottom: 65px;
+}
+
+.contact-actions .button {
+  transition: transform .2s ease, background .2s ease;
+}
+
+.contact-actions .button:hover {
+  transform: translateY(-2px);
+}
+
+/* Pie de página */
+footer {
+  flex-wrap: wrap;
+}
+
+.image-credit {
+  display: block;
+  width: 100%;
+  color: #999;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.image-credit a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Transiciones y accesibilidad */
+.button,
+.text-link,
+.whatsapp-float {
+  transition: all .2s ease;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-3px);
+}
+
+/* TABLET */
+@media (max-width: 850px) {
+  .topbar {
+    gap: 14px;
+  }
+
+  .hero {
+    padding-top: 48px;
+    padding-bottom: 58px;
+  }
+
+  .hero-visual {
+    height: 360px;
+  }
+
+  .booking-wrap {
+    padding-top: 58px;
+    padding-bottom: 62px;
+  }
+
+  .services {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+}
+
+/* MÓVIL */
+@media (max-width: 520px) {
+  .topbar {
+    min-height: 76px;
+    padding: 10px 5%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand language"
+      "phone phone";
+    gap: 5px 12px;
+  }
+
+  .topbar .brand {
+    grid-area: brand;
+    gap: 8px;
+    font-size: 14px !important;
+  }
+
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    font-size: 20px;
+  }
+
+  .brand small {
+    font-size: 9px !important;
+    letter-spacing: 1.5px;
+  }
+
+  .header-language {
+    grid-area: language;
+    justify-self: end;
+    margin: 0;
+  }
+
+  .language-select {
+    min-height: 38px;
+    padding: 5px 9px;
+  }
+
+  .top-phone {
+    grid-area: phone;
+    justify-self: end;
+    font-size: 12px !important;
+    padding-right: 2px;
+  }
+
+  .hero {
+    padding: 38px 6% 46px;
+    gap: 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 9.5vw, 46px);
+    letter-spacing: -1.9px;
+    line-height: 1.15 !important;
+  }
+
+  .intro {
+    margin-bottom: 0;
+  }
+
+  .hero-visual {
+    height: 270px;
+  }
+
+  .image-caption {
+    left: 18px;
+    bottom: 18px;
+  }
+
+  .image-caption span {
+    font-size: 10px;
+  }
+
+  .image-caption b {
+    font-size: 20px;
+  }
+
+  .vehicle-note {
+    top: 12px;
+    right: 12px;
+    padding: 9px 11px;
+    font-size: 10px;
+  }
+
+  .booking-wrap {
+    padding: 48px 6%;
+  }
+
+  .booking-form {
+    padding: 20px;
+    gap: 17px;
+  }
+
+  .services {
+    padding: 62px 7%;
+  }
+
+  .service-grid article {
+    padding: 20px 0;
+  }
+
+  .experience {
+    height: 450px;
+  }
+
+  .experience > img {
+    object-position: center;
+  }
+
+  .experience > div {
+    left: 7%;
+    right: 7%;
+    width: auto;
+    max-width: none;
+  }
+
+  .experience h2 {
+    font-size: 31px;
+  }
+
+  .contact-strip {
+    padding: 42px 7%;
+  }
+
+  .contact-actions {
+    width: 100%;
+  }
+
+  .contact-actions .button {
+    flex: 1;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  footer {
+    gap: 16px;
+    padding: 28px 7%;
+  }
+
+  .image-credit {
+    font-size: 10px;
+  }
+}
+
+/* Pantallas muy estrechas */
+@media (max-width: 360px) {
+  .brand {
+    letter-spacing: .8px;
+  }
+
+  .top-phone {
+    font-size: 11px !important;
+  }
+
+  .hero h1 {
+    font-size: 37px;
+  }
+
+  .hero-visual {
+    height: 235px;
+  }
+}
+
