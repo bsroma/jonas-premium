@@ -13,33 +13,73 @@
   <link rel="stylesheet" href="./styles.css">
 
   <style>
+    body {
+      background: #f7f6f3;
+    }
+
+    .topbar {
+      background: #121212;
+      color: #fff;
+      min-height: 82px;
+    }
+
+    .topbar > a:last-child {
+      font-size: 13px;
+      color: #fff;
+      transition: color .2s ease;
+    }
+
+    .topbar > a:last-child:hover {
+      color: #e63946;
+    }
+
     .admin {
       max-width: 1180px;
-      margin: 48px auto;
-      padding: 0 22px 70px;
+      margin: 55px auto;
+      padding: 0 24px 80px;
+    }
+
+    .admin .eyebrow {
+      color: #e63946;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
     }
 
     .admin h1 {
-      font-size: clamp(28px,4vw,38px);
-      margin: 8px 0;
+      font-size: clamp(30px,4vw,42px);
+      letter-spacing: -1.5px;
+      margin: 10px 0;
     }
 
     .admin h2 {
       font-size: 19px;
-      margin: 0 0 8px;
+      letter-spacing: -.3px;
+      margin: 0 0 9px;
+    }
+
+    .admin-header-note {
+      max-width: 700px;
+      color: #777;
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 30px;
     }
 
     .admin-card {
-      background: #f7f6f3;
-      padding: 22px;
-      margin: 18px 0;
-      border: 1px solid #e9e6e1;
+      background: #fff;
+      padding: 26px;
+      margin: 20px 0;
+      border: 1px solid #eae7e2;
+      border-radius: 8px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.035);
     }
 
     .admin-form {
       display: grid;
       grid-template-columns: repeat(2,minmax(0,1fr));
-      gap: 12px;
+      gap: 14px;
+      margin-top: 20px;
     }
 
     .admin-form label,
@@ -57,10 +97,29 @@
     .quote-form select {
       min-width: 0;
       width: 100%;
+      box-sizing: border-box;
+    }
+
+    .admin-form input {
+      padding: 13px;
+      border: 1px solid #dedbd6;
+      border-radius: 5px;
+      font: 14px Manrope,sans-serif;
+      background: #fff;
+    }
+
+    .admin-form input:focus,
+    .quote-form input:focus,
+    .quote-form textarea:focus,
+    .quote-form select:focus,
+    #filter:focus {
+      outline: 2px solid rgba(230,57,70,.2);
+      border-color: #e63946;
     }
 
     .admin-form button {
       grid-column: 1/-1;
+      min-height: 46px;
     }
 
     .toolbar {
@@ -68,42 +127,61 @@
       gap: 10px;
       flex-wrap: wrap;
       align-items: center;
-      margin: 18px 0;
+      margin: 25px 0 18px;
     }
 
     .admin-tabs {
       display: flex;
-      gap: 8px;
-      overflow: auto;
-      padding: 8px 0 14px;
-      border-bottom: 1px solid #ddd;
+      gap: 9px;
+      overflow-x: auto;
+      padding: 10px 0 16px;
+      border-bottom: 1px solid #dedbd6;
     }
 
     .admin-tabs button {
       white-space: nowrap;
+      border-radius: 4px;
+      padding: 11px 18px;
+      font-size: 12px;
+      transition: all .2s ease;
+    }
+
+    .admin-tabs button:hover {
+      border-color: #e63946;
+      color: #e63946;
     }
 
     .tab-panel {
-      padding-top: 18px;
+      padding-top: 22px;
     }
 
     .reservation,
     .data-card {
       background: #fff;
-      border: 1px solid #e8e5e0;
-      padding: 18px;
-      margin: 12px 0;
+      border: 1px solid #e9e6e1;
+      border-radius: 7px;
+      padding: 22px;
+      margin: 14px 0;
       display: grid;
       grid-template-columns: minmax(0,1fr) auto;
-      gap: 14px;
+      gap: 18px;
+      box-shadow: 0 5px 18px rgba(0,0,0,.025);
+      transition: box-shadow .2s ease,border-color .2s ease;
+    }
+
+    .reservation:hover,
+    .data-card:hover {
+      border-color: #d8d2ca;
+      box-shadow: 0 8px 24px rgba(0,0,0,.05);
     }
 
     .reservation p,
     .data-card p {
       font-size: 12px;
       color: #777;
-      line-height: 1.8;
+      line-height: 1.9;
       margin: 5px 0;
+      overflow-wrap: anywhere;
     }
 
     .reservation strong,
@@ -114,26 +192,29 @@
     .reservation-actions,
     .data-actions {
       display: flex;
-      gap: 7px;
+      gap: 8px;
       align-items: center;
       flex-wrap: wrap;
     }
 
     .smallbtn {
-      border: 1px solid #d8d5d0;
+      border: 1px solid #dedbd6;
       background: #fff;
       color: #222;
-      padding: 9px 11px;
-      font: 600 11px Manrope;
+      border-radius: 4px;
+      padding: 10px 13px;
+      font: 700 11px Manrope,sans-serif;
       cursor: pointer;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      transition: all .2s ease;
     }
 
     .smallbtn:hover {
       border-color: #e63946;
+      color: #e63946;
     }
 
     .smallbtn:disabled {
@@ -148,16 +229,18 @@
     .notice {
       font-size: 12px;
       color: #777;
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
     .status-pill {
       display: inline-block;
-      padding: 5px 8px;
+      padding: 6px 10px;
+      border-radius: 3px;
       background: #f1efeb;
       font-size: 10px;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: .04em;
+      letter-spacing: .05em;
     }
 
     .status-pill.good {
@@ -173,25 +256,28 @@
     .subheading {
       display: flex;
       justify-content: space-between;
-      gap: 15px;
+      gap: 18px;
       align-items: center;
-      margin: 18px 0 10px;
+      margin: 20px 0 14px;
     }
 
-    .admin-header-note {
-      max-width: 700px;
-      color: #777;
-      font-size: 12px;
-      line-height: 1.8;
+    #filter {
+      min-height: 42px;
+      padding: 9px 12px;
+      border: 1px solid #dedbd6;
+      border-radius: 4px;
+      background: #fff;
+      font: 12px Manrope,sans-serif;
+      color: #222;
     }
 
     .quote-form {
       display: grid;
       grid-template-columns: repeat(2,minmax(0,1fr));
-      gap: 12px;
+      gap: 14px;
       width: 100%;
-      margin-top: 16px;
-      padding-top: 15px;
+      margin-top: 18px;
+      padding-top: 18px;
       border-top: 1px solid #eee;
     }
 
@@ -201,10 +287,10 @@
 
     .quote-form input,
     .quote-form textarea {
-      padding: 11px;
-      border: 1px solid #ddd;
-      border-radius: 3px;
-      font: 14px Manrope;
+      padding: 12px;
+      border: 1px solid #dedbd6;
+      border-radius: 4px;
+      font: 13px Manrope,sans-serif;
       background: #fff;
     }
 
@@ -214,17 +300,20 @@
 
     .quote-actions {
       display: flex;
-      gap: 8px;
+      gap: 9px;
       flex-wrap: wrap;
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     .empty {
-      padding: 20px;
+      padding: 26px;
       color: #777;
       background: #fff;
-      border: 1px dashed #ddd;
+      border: 1px dashed #d8d5d0;
+      border-radius: 6px;
       font-size: 12px;
+      text-align: center;
+      line-height: 1.8;
     }
 
     .inline-status {
@@ -232,12 +321,18 @@
       gap: 8px;
       align-items: center;
       flex-wrap: wrap;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .quote-message {
-      margin-top: 8px;
+      margin-top: 9px;
       min-height: 18px;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid #e63946;
+      outline-offset: 3px;
     }
 
     @media(max-width:760px) {
@@ -250,16 +345,30 @@
       .data-actions {
         justify-content: flex-start;
       }
+
+      .subheading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      #filter {
+        width: 100%;
+      }
     }
 
     @media(max-width:520px) {
+      .topbar {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
       .admin {
-        margin: 30px auto;
-        padding: 0 14px 50px;
+        margin: 35px auto;
+        padding: 0 15px 55px;
       }
 
       .admin-card {
-        padding: 16px;
+        padding: 19px;
       }
 
       .admin-form,
@@ -267,17 +376,22 @@
         grid-template-columns: 1fr;
       }
 
-      .quote-form .wide {
-        grid-column: auto;
-      }
-
+      .quote-form .wide,
       .admin-form button {
         grid-column: auto;
       }
 
-      .subheading {
-        align-items: flex-start;
-        flex-direction: column;
+      .reservation,
+      .data-card {
+        padding: 17px;
+      }
+
+      .admin-tabs button {
+        padding: 10px 14px;
+      }
+
+      .toolbar .smallbtn {
+        flex: 1;
       }
     }
   </style>
@@ -404,8 +518,3 @@
 
 </body>
 </html>
-
-  </section>
-</main>
-<script type="module" src="./admin.js"></script>
-</body></html>
