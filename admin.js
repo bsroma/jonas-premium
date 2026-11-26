@@ -573,52 +573,102 @@ async function loadQuotes() {
     );
 
     return `
-      <article class="data-card">
+  <article class="data-card quote-card">
+
+    <div class="quote-card-header">
+      <div>
+        <span class="reservation-label">PRESUPUESTO DE SERVICIO</span>
         <h3>${esc(reservation.customer_name || "Cliente")}</h3>
+      </div>
 
-        <p><strong>Trayecto:</strong> ${esc(reservation.origin || "—")} → ${esc(reservation.destination || "—")}</p>
-        <p><strong>Fecha:</strong> ${esc(reservation.travel_date || "—")} · ${esc(reservation.travel_time || "—")}</p>
+      <span class="quote-price">
+        ${esc(money(quote.total, quote.currency || "EUR"))}
+      </span>
+    </div>
 
-        <p><strong>Presupuesto:</strong> ${esc(money(quote.total, quote.currency || "EUR"))}</p>
-        <p><strong>Estado:</strong> ${esc(quote.status)}</p>
-        <p><strong>Creado:</strong> ${esc(quote.created_at ? new Date(quote.created_at).toLocaleString("es-ES") : "—")}</p>
-        <p><strong>Válido hasta:</strong> ${esc(quote.valid_until ? new Date(quote.valid_until).toLocaleDateString("es-ES") : "Sin fecha límite")}</p>
+    <div class="quote-route">
+      <strong>${esc(reservation.origin || "—")}</strong>
+      <span>→</span>
+      <strong>${esc(reservation.destination || "—")}</strong>
+    </div>
 
-        ${quote.conditions ? `<p><strong>Condiciones:</strong> ${esc(quote.conditions)}</p>` : ""}
+    <div class="reservation-details quote-details">
 
-        <label>
-          Estado del presupuesto
-          <select data-quote-status="${quoteId}">
-            <option value="prepared" ${quote.status === "prepared" ? "selected" : ""}>Preparado</option>
-            <option value="sent" ${quote.status === "sent" ? "selected" : ""}>Enviado</option>
-            <option value="accepted" ${quote.status === "accepted" ? "selected" : ""}>Aceptado</option>
-            <option value="rejected" ${quote.status === "rejected" ? "selected" : ""}>Rechazado</option>
-            <option value="expired" ${quote.status === "expired" ? "selected" : ""}>Caducado</option>
-          </select>
-        </label>
+      <div class="detail-item">
+        <small>FECHA DEL SERVICIO</small>
+        <strong>${esc(reservation.travel_date || "—")}</strong>
+      </div>
 
-        <div class="quote-actions">
-          <button type="button" class="smallbtn" data-whatsapp-quote="${quoteId}">Preparar WhatsApp</button>
-          <button type="button" class="smallbtn" data-email-quote="${quoteId}" ${reservation.email ? "" : "disabled"}>Preparar correo</button>
-        </div>
+      <div class="detail-item">
+        <small>HORA</small>
+        <strong>${esc(reservation.travel_time || "—")}</strong>
+      </div>
 
-        <div class="quote-message">
-          <strong>Historial de mensajes:</strong>
-          ${
-            quoteMessages.length
-              ? quoteMessages.map((message) => `
-                <p>
-                  ${esc(message.channel === "whatsapp" ? "WhatsApp" : "Correo")}
-                  · ${esc(message.status || "—")}
-                  · ${esc(message.created_at ? new Date(message.created_at).toLocaleString("es-ES") : "—")}
-                </p>
-              `).join("")
-              : "<p>Sin mensajes preparados.</p>"
-          }
-          <p class="notice">El historial registra la preparación y apertura del mensaje, no confirma que se haya enviado.</p>
-        </div>
-      </article>
-    `;
+      <div class="detail-item">
+        <small>FECHA DE CREACIÓN</small>
+        <strong>${esc(quote.created_at ? new Date(quote.created_at).toLocaleString("es-ES") : "—")}</strong>
+      </div>
+
+      <div class="detail-item">
+        <small>VÁLIDO HASTA</small>
+        <strong>${esc(quote.valid_until ? new Date(quote.valid_until).toLocaleDateString("es-ES") : "Sin fecha límite")}</strong>
+      </div>
+
+    </div>
+
+    ${quote.conditions ? `
+      <div class="reservation-notes">
+        <strong>Condiciones del presupuesto</strong>
+        <p>${esc(quote.conditions)}</p>
+      </div>
+    ` : ""}
+
+    <div class="quote-status-section">
+      <label>
+        Estado del presupuesto
+
+        <select data-quote-status="${quoteId}">
+          <option value="prepared" ${quote.status === "prepared" ? "selected" : ""}>Preparado</option>
+          <option value="sent" ${quote.status === "sent" ? "selected" : ""}>Enviado</option>
+          <option value="accepted" ${quote.status === "accepted" ? "selected" : ""}>Aceptado</option>
+          <option value="rejected" ${quote.status === "rejected" ? "selected" : ""}>Rechazado</option>
+          <option value="expired" ${quote.status === "expired" ? "selected" : ""}>Caducado</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="quote-actions">
+      <button type="button" class="smallbtn" data-whatsapp-quote="${quoteId}">
+        Preparar WhatsApp
+      </button>
+
+      <button type="button" class="smallbtn" data-email-quote="${quoteId}" ${reservation.email ? "" : "disabled"}>
+        Preparar correo
+      </button>
+    </div>
+
+    <div class="quote-message quote-history">
+      <strong>Historial de mensajes</strong>
+
+      ${
+        quoteMessages.length
+          ? quoteMessages.map((message) => `
+            <p>
+              ${esc(message.channel === "whatsapp" ? "WhatsApp" : "Correo")}
+              · ${esc(message.status || "—")}
+              · ${esc(message.created_at ? new Date(message.created_at).toLocaleString("es-ES") : "—")}
+            </p>
+          `).join("")
+          : "<p>Sin mensajes preparados.</p>"
+      }
+
+      <p class="notice">
+        El historial registra la preparación y apertura del mensaje, no confirma que se haya enviado.
+      </p>
+    </div>
+
+  </article>
+`;
   }).join("");
 
   container.querySelectorAll("[data-quote-status]").forEach((select) => {
