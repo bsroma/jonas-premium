@@ -242,74 +242,123 @@ function renderReservations() {
       : "";
 
     return `
-      <article class="reservation">
-        <div class="reservation-header">
-          <h3>${esc(reservation.customer_name || "Cliente")}</h3>
-          <span class="status-pill status-${esc(reservation.status || "pending")}">
-              ${esc({
-                pending: "Pendiente",
-                confirmed: "Confirmada",
-                completed: "Completada",
-                cancelled: "Cancelada"
-              }[reservation.status] || reservation.status || "Pendiente")}
-            </span>
+  <article class="reservation">
+    <div class="reservation-header">
+      <div>
+        <span class="reservation-label">SOLICITUD DE SERVICIO</span>
+        <h3>${esc(reservation.customer_name || "Cliente")}</h3>
+      </div>
+
+      <span class="status-pill status-${esc(reservation.status || "pending")}">
+        ${esc({
+          pending: "Pendiente",
+          confirmed: "Confirmada",
+          completed: "Completada",
+          cancelled: "Cancelada"
+        }[reservation.status] || reservation.status || "Pendiente")}
+      </span>
+    </div>
+
+    <div class="reservation-route">
+      <div class="route-point">
+        <span class="route-dot origin-dot"></span>
+        <div>
+          <small>ORIGEN</small>
+          <strong>${esc(reservation.origin || "No indicado")}</strong>
         </div>
+      </div>
 
-        <p><strong>Origen:</strong> ${esc(reservation.origin)}</p>
-        <p><strong>Destino:</strong> ${esc(reservation.destination)}</p>
-        <p><strong>Fecha:</strong> ${esc(reservation.travel_date)}</p>
-        <p><strong>Hora:</strong> ${esc(reservation.travel_time)}</p>
-        <p><strong>Pasajeros:</strong> ${esc(reservation.passengers)}</p>
-        <p><strong>Teléfono:</strong> ${esc(reservation.phone)}</p>
-        <p><strong>Correo:</strong> ${esc(reservation.email)}</p>
-        ${reservation.notes ? `<p><strong>Observaciones:</strong> ${esc(reservation.notes)}</p>` : ""}
+      <div class="route-line"></div>
 
-        <div class="reservation-actions">
-          <label>
-            Estado de la solicitud
-            <select data-status="${id}">
-              <option value="pending" ${reservation.status === "pending" ? "selected" : ""}>Pendiente</option>
-              <option value="confirmed" ${reservation.status === "confirmed" ? "selected" : ""}>Confirmada</option>
-              <option value="completed" ${reservation.status === "completed" ? "selected" : ""}>Completada</option>
-              <option value="cancelled" ${reservation.status === "cancelled" ? "selected" : ""}>Cancelada</option>
-            </select>
-          </label>
-
-          ${whatsappUrl ? `<a class="smallbtn" href="${esc(whatsappUrl)}" target="_blank" rel="noopener noreferrer">WhatsApp</a>` : ""}
+      <div class="route-point">
+        <span class="route-dot destination-dot"></span>
+        <div>
+          <small>DESTINO</small>
+          <strong>${esc(reservation.destination || "No indicado")}</strong>
         </div>
+      </div>
+    </div>
 
-        <div class="quote-form">
-          <h4>Preparar presupuesto</h4>
+    <div class="reservation-details">
+      <div class="detail-item">
+        <small>FECHA</small>
+        <strong>${esc(reservation.travel_date || "No indicada")}</strong>
+      </div>
 
-          <form data-manual-quote="${id}">
-            <label>
-              Precio (€)
-              <input
-                type="number"
-                name="total"
-                min="0.01"
-                step="0.01"
-                required
-                placeholder="Ej. 85.00"
-              >
-            </label>
+      <div class="detail-item">
+        <small>HORA</small>
+        <strong>${esc(reservation.travel_time || "No indicada")}</strong>
+      </div>
 
-            <label>
-              Válido hasta
-              <input type="date" name="valid_until">
-            </label>
+      <div class="detail-item">
+        <small>PASAJEROS</small>
+        <strong>${esc(reservation.passengers ?? "No indicado")}</strong>
+      </div>
 
-            <label>
-              Condiciones o detalles
-              <textarea name="conditions" rows="2" placeholder="Detalles adicionales del presupuesto"></textarea>
-            </label>
+      <div class="detail-item">
+        <small>TELÉFONO</small>
+        <strong>${esc(reservation.phone || "No indicado")}</strong>
+      </div>
 
-            <button type="submit">Guardar y preparar presupuesto</button>
-            <p class="notice quote-message" data-quote-msg="${id}" role="status"></p>
-          </form>
-        </div>
-      </article>
-    `;
+      <div class="detail-item detail-email">
+        <small>CORREO ELECTRÓNICO</small>
+        <strong>${esc(reservation.email || "No indicado")}</strong>
+      </div>
+    </div>
+
+    ${reservation.notes ? `
+      <div class="reservation-notes">
+        <strong>Observaciones</strong>
+        <p>${esc(reservation.notes)}</p>
+      </div>
+    ` : ""}
+
+    <div class="reservation-actions">
+      <label>
+        Estado de la solicitud
+        <select data-status="${id}">
+          <option value="pending" ${reservation.status === "pending" ? "selected" : ""}>Pendiente</option>
+          <option value="confirmed" ${reservation.status === "confirmed" ? "selected" : ""}>Confirmada</option>
+          <option value="completed" ${reservation.status === "completed" ? "selected" : ""}>Completada</option>
+          <option value="cancelled" ${reservation.status === "cancelled" ? "selected" : ""}>Cancelada</option>
+        </select>
+      </label>
+
+      ${whatsappUrl ? `<a class="smallbtn" href="${esc(whatsappUrl)}" target="_blank" rel="noopener noreferrer">WhatsApp</a>` : ""}
+    </div>
+
+    <div class="quote-form">
+      <h4>Preparar presupuesto</h4>
+
+      <form data-manual-quote="${id}">
+        <label>
+          Precio (€)
+          <input
+            type="number"
+            name="total"
+            min="0.01"
+            step="0.01"
+            required
+            placeholder="Ej. 85.00"
+          >
+        </label>
+
+        <label>
+          Válido hasta
+          <input type="date" name="valid_until">
+        </label>
+
+        <label>
+          Condiciones o detalles
+          <textarea name="conditions" rows="2" placeholder="Detalles adicionales del presupuesto"></textarea>
+        </label>
+
+        <button type="submit">Guardar y preparar presupuesto</button>
+        <p class="notice quote-message" data-quote-msg="${id}" role="status"></p>
+      </form>
+    </div>
+  </article>
+`;
   }).join("");
 
   container.querySelectorAll("[data-status]").forEach((select) => {
