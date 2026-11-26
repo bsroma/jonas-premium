@@ -1,397 +1,843 @@
-
+```html
 <!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#121212">
-  <title>Administración | JONAS PREMIUM</title>
+  <meta name="theme-color" content="#111111">
+  <title>Panel de administración | JONAS PREMIUM</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css">
 
   <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --dark: #111111;
+      --dark-soft: #191919;
+      --red: #e63946;
+      --red-soft: #fff0f1;
+      --ink: #202020;
+      --muted: #858585;
+      --line: #eeeeee;
+      --surface: #ffffff;
+      --background: #f5f5f5;
+      --green: #23865b;
+      --orange: #bd7b24;
+      --blue: #4775b8;
+    }
+
     body {
-      background: #f7f6f3;
+      margin: 0;
+      font-family: Manrope, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--background);
+      font-size: 14px;
     }
 
-    .topbar {
-      background: #121212;
-      color: #fff;
-      min-height: 82px;
+    button, input, select, textarea {
+      font: inherit;
     }
 
-    .topbar > a:last-child {
-      font-size: 13px;
-      color: #fff;
-      transition: color .2s ease;
+    button, a {
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .topbar > a:last-child:hover {
-      color: #e63946;
+    .hidden { display: none !important; }
+
+    /* LOGIN */
+
+    .login-screen {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 80% 15%, #3b2022 0, transparent 35%),
+        #111;
     }
 
-    .admin {
-      max-width: 1180px;
-      margin: 55px auto;
-      padding: 0 24px 80px;
+    .login-card {
+      width: 100%;
+      max-width: 430px;
+      padding: 42px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 25px 80px #0005;
     }
 
-    .admin .eyebrow {
-      color: #e63946;
-      font-size: 11px;
+    .login-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 38px;
+      font-size: 16px;
       font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--red);
+      border-radius: 50%;
+      color: var(--red);
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .login-card h1 {
+      margin: 0 0 9px;
+      font-size: 27px;
+      letter-spacing: -1px;
+    }
+
+    .login-card > p {
+      margin: 0 0 27px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* FORMULARIOS */
+
+    label {
+      display: block;
+      margin-bottom: 15px;
+      color: #555;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      margin-top: 7px;
+      padding: 12px 13px;
+      border: 1px solid #e4e4e4;
+      border-radius: 9px;
+      background: white;
+      color: var(--ink);
+      outline: none;
+      transition: border .2s, box-shadow .2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px #e6394615;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .primary-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 9px;
+      padding: 14px 18px;
+      background: var(--red);
+      color: white;
+      font-weight: 800;
+      transition: background .2s, transform .2s;
+    }
+
+    .primary-btn:hover {
+      background: #c92d39;
+      transform: translateY(-1px);
+    }
+
+    .login-message {
+      min-height: 20px;
+      margin-top: 15px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* ESTRUCTURA DEL PANEL */
+
+    .app-shell {
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      z-index: 20;
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      padding: 27px 19px;
+      background: var(--dark);
+      color: white;
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 0 7px 34px;
+      border-bottom: 1px solid #ffffff17;
+    }
+
+    .sidebar-brand .brand-mark {
+      flex-shrink: 0;
+      width: 39px;
+      height: 39px;
+    }
+
+    .brand-name {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .brand-subtitle {
+      display: block;
+      margin-top: 4px;
+      color: #999;
+      font-size: 9px;
       letter-spacing: 2px;
     }
 
-    .admin h1 {
-      font-size: clamp(30px,4vw,42px);
-      letter-spacing: -1.5px;
-      margin: 10px 0;
-    }
-
-    .admin h2 {
-      font-size: 19px;
-      letter-spacing: -.3px;
-      margin: 0 0 9px;
-    }
-
-    .admin-header-note {
-      max-width: 700px;
+    .nav-label {
+      margin: 29px 10px 12px;
       color: #777;
-      font-size: 13px;
-      line-height: 1.8;
-      margin-bottom: 30px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
     }
 
-    .admin-card {
-      background: #fff;
-      padding: 26px;
-      margin: 20px 0;
-      border: 1px solid #eae7e2;
-      border-radius: 8px;
-      box-shadow: 0 8px 28px rgba(0,0,0,.035);
-    }
-
-    .admin-form {
+    .side-nav {
       display: grid;
-      grid-template-columns: repeat(2,minmax(0,1fr));
-      gap: 14px;
-      margin-top: 20px;
-    }
-
-    .admin-form label,
-    .quote-form label {
-      font-size: 12px;
-      font-weight: 700;
-      display: flex;
-      flex-direction: column;
       gap: 7px;
     }
 
-    .admin-form input,
-    .quote-form input,
-    .quote-form textarea,
-    .quote-form select {
-      min-width: 0;
+    .side-nav button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       width: 100%;
-      box-sizing: border-box;
+      padding: 13px 14px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: #bdbdbd;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      transition: .2s;
     }
 
-    .admin-form input {
-      padding: 13px;
-      border: 1px solid #dedbd6;
-      border-radius: 5px;
-      font: 14px Manrope,sans-serif;
-      background: #fff;
+    .side-nav button:hover {
+      background: #ffffff0d;
+      color: white;
     }
 
-    .admin-form input:focus,
-    .quote-form input:focus,
-    .quote-form textarea:focus,
-    .quote-form select:focus,
-    #filter:focus {
-      outline: 2px solid rgba(230,57,70,.2);
-      border-color: #e63946;
+    .side-nav button.active {
+      background: #e6394620;
+      color: white;
+      box-shadow: inset 3px 0 var(--red);
     }
 
-    .admin-form button {
-      grid-column: 1/-1;
-      min-height: 46px;
+    .nav-icon {
+      width: 20px;
+      color: var(--red);
+      text-align: center;
+      font-size: 17px;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      padding-top: 22px;
+      border-top: 1px solid #ffffff17;
+    }
+
+    .sidebar-bottom a {
+      display: block;
+      padding: 12px;
+      color: #bbb;
+      text-decoration: none;
+      font-size: 11px;
+    }
+
+    .sidebar-bottom a:hover {
+      color: white;
+    }
+
+    .sidebar-note {
+      margin: 12px 10px 0;
+      color: #777;
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    /* CONTENIDO PRINCIPAL */
+
+    .main-area {
+      min-height: 100vh;
+      margin-left: 250px;
+    }
+
+    .topbar {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 38px;
+      border-bottom: 1px solid var(--line);
+      background: white;
+    }
+
+    .topbar-title {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .topbar-title strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar-actions button {
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      color: #555;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .topbar-actions button:hover {
+      border-color: #ccc;
+      background: #fafafa;
+    }
+
+    .topbar-actions .logout-btn {
+      border-color: #f2d5d7;
+      color: #c52d39;
+    }
+
+    .content {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 35px 38px 55px;
+    }
+
+    .page-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      margin-bottom: 9px;
+      color: var(--red);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .page-heading h1 {
+      margin: 0;
+      font-size: clamp(25px, 3vw, 34px);
+      letter-spacing: -1.5px;
+    }
+
+    .page-heading p {
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    /* TARJETAS */
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 17px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 130px;
+      padding: 21px;
+      border: 1px solid #eeeeee;
+      border-radius: 13px;
+      background: white;
+      box-shadow: 0 4px 18px #00000005;
+    }
+
+    .stat-card:after {
+      position: absolute;
+      right: -17px;
+      bottom: -34px;
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      background: #e6394608;
+      content: "";
+    }
+
+    .stat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .stat-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: var(--red-soft);
+      color: var(--red);
+      font-size: 16px;
+    }
+
+    .stat-number {
+      display: block;
+      margin-top: 13px;
+      font-size: 29px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .stat-description {
+      margin-top: 3px;
+      color: #aaa;
+      font-size: 10px;
+    }
+
+    /* SECCIONES */
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 0 0 19px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: 17px;
+      letter-spacing: -.5px;
+    }
+
+    .section-heading p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .content-panel {
+      padding: 24px;
+      border: 1px solid #ededed;
+      border-radius: 13px;
+      background: white;
+      box-shadow: 0 4px 18px #00000005;
     }
 
     .toolbar {
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
       align-items: center;
-      margin: 25px 0 18px;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 20px;
     }
 
-    .admin-tabs {
-      display: flex;
-      gap: 9px;
-      overflow-x: auto;
-      padding: 10px 0 16px;
-      border-bottom: 1px solid #dedbd6;
-    }
-
-    .admin-tabs button {
-      white-space: nowrap;
-      border-radius: 4px;
-      padding: 11px 18px;
+    .toolbar select {
+      width: auto;
+      min-width: 180px;
+      margin: 0;
       font-size: 12px;
-      transition: all .2s ease;
     }
 
-    .admin-tabs button:hover {
-      border-color: #e63946;
-      color: #e63946;
+    .status-message {
+      min-height: 18px;
+      margin: 0;
+      color: #777;
+      font-size: 11px;
     }
 
-    .tab-panel {
-      padding-top: 22px;
-    }
+    /* TARJETAS DE SOLICITUDES Y PRESUPUESTOS */
 
     .reservation,
     .data-card {
-      background: #fff;
-      border: 1px solid #e9e6e1;
-      border-radius: 7px;
+      margin-bottom: 16px;
       padding: 22px;
-      margin: 14px 0;
-      display: grid;
-      grid-template-columns: minmax(0,1fr) auto;
-      gap: 18px;
-      box-shadow: 0 5px 18px rgba(0,0,0,.025);
-      transition: box-shadow .2s ease,border-color .2s ease;
+      border: 1px solid #ededed;
+      border-radius: 12px;
+      background: white;
+      transition: box-shadow .2s, border .2s;
     }
 
     .reservation:hover,
     .data-card:hover {
-      border-color: #d8d2ca;
-      box-shadow: 0 8px 24px rgba(0,0,0,.05);
+      border-color: #e5c4c6;
+      box-shadow: 0 8px 25px #00000008;
+    }
+
+    .reservation:last-child,
+    .data-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .reservation-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .reservation h3,
+    .data-card h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+
+    .reservation-header h3 {
+      margin: 0;
     }
 
     .reservation p,
     .data-card p {
+      margin: 8px 0;
+      color: #666;
       font-size: 12px;
-      color: #777;
-      line-height: 1.9;
-      margin: 5px 0;
+      line-height: 1.6;
       overflow-wrap: anywhere;
     }
 
-    .reservation strong,
-    .data-card strong {
-      font-size: 14px;
-    }
-
-    .reservation-actions,
-    .data-actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .smallbtn {
-      border: 1px solid #dedbd6;
-      background: #fff;
-      color: #222;
-      border-radius: 4px;
-      padding: 10px 13px;
-      font: 700 11px Manrope,sans-serif;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: all .2s ease;
-    }
-
-    .smallbtn:hover {
-      border-color: #e63946;
-      color: #e63946;
-    }
-
-    .smallbtn:disabled {
-      opacity: .45;
-      cursor: not-allowed;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .notice {
-      font-size: 12px;
-      color: #777;
-      line-height: 1.8;
+    .reservation p strong,
+    .data-card p strong {
+      color: #333;
     }
 
     .status-pill {
       display: inline-block;
       padding: 6px 10px;
-      border-radius: 3px;
-      background: #f1efeb;
+      border-radius: 30px;
+      background: #fff4e5;
+      color: #a76b17;
       font-size: 10px;
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .05em;
     }
 
-    .status-pill.good {
-      background: #e7f2e9;
-      color: #246334;
-    }
-
-    .status-pill.off {
-      background: #f7e9e9;
-      color: #9b3030;
-    }
-
-    .subheading {
+    .reservation-actions,
+    .quote-actions {
       display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: center;
-      margin: 20px 0 14px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 17px;
+      border-top: 1px solid var(--line);
     }
 
-    #filter {
-      min-height: 42px;
-      padding: 9px 12px;
-      border: 1px solid #dedbd6;
-      border-radius: 4px;
-      background: #fff;
-      font: 12px Manrope,sans-serif;
-      color: #222;
+    .reservation-actions label {
+      flex: 1;
+      min-width: 190px;
+      margin: 0;
+    }
+
+    .reservation-actions select {
+      margin-bottom: 0;
+    }
+
+    .smallbtn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 10px 15px;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      background: white;
+      color: #444;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 800;
+      transition: .2s;
+    }
+
+    .smallbtn:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .smallbtn:disabled {
+      opacity: .4;
+      cursor: not-allowed;
     }
 
     .quote-form {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      background: #f8f8f8;
+    }
+
+    .quote-form h4 {
+      margin: 0 0 17px;
+      font-size: 13px;
+    }
+
+    .quote-form form {
       display: grid;
-      grid-template-columns: repeat(2,minmax(0,1fr));
-      gap: 14px;
-      width: 100%;
-      margin-top: 18px;
-      padding-top: 18px;
-      border-top: 1px solid #eee;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 15px;
     }
 
-    .quote-form .wide {
-      grid-column: 1/-1;
+    .quote-form label:nth-child(3) {
+      grid-column: 1 / -1;
     }
 
-    .quote-form input,
-    .quote-form textarea {
-      padding: 12px;
-      border: 1px solid #dedbd6;
-      border-radius: 4px;
-      font: 13px Manrope,sans-serif;
-      background: #fff;
+    .quote-form button {
+      justify-self: start;
+      padding: 12px 17px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--dark);
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
     }
 
-    .quote-form textarea {
-      resize: vertical;
+    .quote-form button:hover {
+      background: var(--red);
     }
 
-    .quote-actions {
-      display: flex;
-      gap: 9px;
-      flex-wrap: wrap;
-      margin-top: 10px;
+    .quote-form button:disabled {
+      opacity: .5;
+      cursor: wait;
     }
 
-    .empty {
-      padding: 26px;
+    .notice {
       color: #777;
-      background: #fff;
-      border: 1px dashed #d8d5d0;
-      border-radius: 6px;
-      font-size: 12px;
-      text-align: center;
-      line-height: 1.8;
-    }
-
-    .inline-status {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-top: 12px;
+      font-size: 11px;
+      line-height: 1.6;
     }
 
     .quote-message {
-      margin-top: 9px;
-      min-height: 18px;
+      grid-column: 1 / -1;
+      margin: 10px 0 0;
     }
 
-    button:focus-visible,
-    a:focus-visible {
-      outline: 2px solid #e63946;
-      outline-offset: 3px;
+    .quote-actions {
+      align-items: center;
     }
 
-    @media(max-width:760px) {
-      .reservation,
-      .data-card {
-        grid-template-columns: 1fr;
+    .quote-message {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid var(--line);
+    }
+
+    .empty {
+      padding: 38px 20px;
+      border: 1px dashed #ddd;
+      border-radius: 10px;
+      color: #999;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    /* MÓVIL */
+
+    @media (max-width: 1100px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .reservation-actions,
-      .data-actions {
-        justify-content: flex-start;
+      .content {
+        padding-left: 25px;
+        padding-right: 25px;
       }
 
-      .subheading {
+      .topbar {
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .sidebar {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        padding: 15px 18px;
+      }
+
+      .sidebar-brand {
+        padding: 0 2px 14px;
+      }
+
+      .nav-label,
+      .sidebar-bottom {
+        display: none;
+      }
+
+      .side-nav {
+        display: flex;
+        gap: 7px;
+        margin-top: 13px;
+      }
+
+      .side-nav button {
+        justify-content: center;
+        flex: 1;
+        gap: 6px;
+        padding: 10px 7px;
+        font-size: 10px;
+      }
+
+      .nav-icon {
+        width: auto;
+        font-size: 14px;
+      }
+
+      .main-area {
+        margin-left: 0;
+      }
+
+      .topbar {
+        min-height: 65px;
+        padding: 12px 18px;
+      }
+
+      .content {
+        padding: 25px 18px 40px;
+      }
+
+      .page-heading {
         align-items: flex-start;
         flex-direction: column;
       }
-
-      #filter {
-        width: 100%;
-      }
     }
 
-    @media(max-width:520px) {
-      .topbar {
-        padding-left: 5%;
-        padding-right: 5%;
+    @media (max-width: 520px) {
+      .stats-grid {
+        gap: 10px;
       }
 
-      .admin {
-        margin: 35px auto;
-        padding: 0 15px 55px;
+      .stat-card {
+        min-height: 116px;
+        padding: 14px;
       }
 
-      .admin-card {
-        padding: 19px;
+      .stat-number {
+        font-size: 25px;
       }
 
-      .admin-form,
-      .quote-form {
-        grid-template-columns: 1fr;
+      .stat-label {
+        font-size: 10px;
       }
 
-      .quote-form .wide,
-      .admin-form button {
-        grid-column: auto;
+      .stat-icon {
+        width: 29px;
+        height: 29px;
+      }
+
+      .topbar-actions {
+        gap: 6px;
+      }
+
+      .topbar-actions button {
+        padding: 9px;
+        font-size: 10px;
+      }
+
+      .topbar-title {
+        font-size: 10px;
+      }
+
+      .topbar-title strong {
+        font-size: 12px;
+      }
+
+      .content-panel {
+        padding: 15px;
+      }
+
+      .toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .toolbar select {
+        width: 100%;
       }
 
       .reservation,
       .data-card {
-        padding: 17px;
+        padding: 16px;
       }
 
-      .admin-tabs button {
-        padding: 10px 14px;
+      .reservation-actions {
+        align-items: stretch;
+        flex-direction: column;
       }
 
-      .toolbar .smallbtn {
-        flex: 1;
+      .reservation-actions label {
+        min-width: 0;
+      }
+
+      .reservation-actions .smallbtn {
+        width: 100%;
+      }
+
+      .quote-form {
+        padding: 15px;
+      }
+
+      .quote-form form {
+        grid-template-columns: 1fr;
+      }
+
+      .quote-form label:nth-child(3) {
+        grid-column: auto;
+      }
+
+      .quote-form button {
+        width: 100%;
+      }
+
+      .login-card {
+        padding: 28px 23px;
       }
     }
   </style>
@@ -399,122 +845,199 @@
 
 <body>
 
-<header class="topbar">
-  <a class="brand" href="./">
-    <span class="brand-mark">J</span>
-    <span>JONAS <b>PREMIUM</b><small>ADMINISTRACIÓN</small></span>
-  </a>
-  <a href="./">Volver a la web ↗</a>
-</header>
+  <!-- LOGIN -->
+  <section class="login-screen" id="login-panel">
+    <div class="login-card">
+      <div class="login-brand">
+        <span class="brand-mark">J</span>
+        <span>JONAS PREMIUM</span>
+      </div>
 
-<main class="admin">
+      <div class="eyebrow">Área privada</div>
+      <h1>Bienvenido</h1>
+      <p>Accede al panel de administración de JONAS PREMIUM.</p>
 
-  <p class="eyebrow">ÁREA PRIVADA · GESTIÓN EJECUTIVA</p>
-  <h1>Panel de administración</h1>
+      <form id="login-form">
+        <label>
+          Correo electrónico
+          <input
+            id="login-email"
+            type="email"
+            autocomplete="username"
+            required
+            placeholder="admin@ejemplo.com">
+        </label>
 
-  <p class="admin-header-note">
-    Gestiona las solicitudes de tus clientes, prepara presupuestos personalizados
-    y contacta directamente por WhatsApp o correo electrónico.
-  </p>
+        <label>
+          Contraseña
+          <input
+            id="login-password"
+            type="password"
+            autocomplete="current-password"
+            required
+            placeholder="Tu contraseña">
+        </label>
 
-  <section id="login-panel" class="admin-card">
-    <h2>Acceso del administrador</h2>
-
-    <p class="notice">
-      Inicia sesión con el usuario autorizado en Supabase.
-    </p>
-
-    <form id="login-form" class="admin-form">
-      <input
-        name="email"
-        type="email"
-        placeholder="Correo electrónico"
-        autocomplete="username"
-        required>
-
-      <input
-        name="password"
-        type="password"
-        placeholder="Contraseña"
-        autocomplete="current-password"
-        required>
-
-      <button class="button button-red" type="submit">
-        Entrar
-      </button>
-    </form>
-
-    <p id="login-msg" class="notice" role="status"></p>
+        <button class="primary-btn" type="submit">Iniciar sesión</button>
+        <p class="login-message" id="login-msg" role="status"></p>
+      </form>
+    </div>
   </section>
 
-  <section id="dashboard" class="hidden">
+  <!-- DASHBOARD -->
+  <div class="app-shell hidden" id="dashboard">
 
-    <div class="toolbar">
-      <button id="logout" class="smallbtn" type="button">
-        Cerrar sesión
-      </button>
-
-      <button id="refresh-all" class="smallbtn" type="button">
-        Actualizar datos
-      </button>
-
-      <span id="admin-msg" class="notice" role="status"></span>
-    </div>
-
-    <nav class="admin-tabs" aria-label="Secciones de administración">
-      <button class="smallbtn" type="button" data-tab="reservations">
-        Solicitudes
-      </button>
-
-      <button class="smallbtn" type="button" data-tab="quotes">
-        Presupuestos
-      </button>
-    </nav>
-
-    <section id="tab-reservations" class="tab-panel">
-
-      <div class="subheading">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-mark">J</span>
         <div>
-          <h2>Solicitudes recibidas</h2>
-          <p class="notice">
-            Revisa los datos del viaje, introduce el precio acordado y prepara
-            el presupuesto. Las solicitudes se conservan en el historial.
-          </p>
+          <div class="brand-name">JONAS PREMIUM</div>
+          <span class="brand-subtitle">ADMINISTRATION</span>
+        </div>
+      </div>
+
+      <div class="nav-label">GESTIÓN</div>
+
+      <nav class="side-nav">
+        <button type="button" class="active" data-tab="reservations">
+          <span class="nav-icon">▦</span>
+          Solicitudes
+        </button>
+
+        <button type="button" data-tab="quotes">
+          <span class="nav-icon">€</span>
+          Presupuestos
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <a href="./index.html">← Volver a la web pública</a>
+        <div class="sidebar-note">
+          JONAS PREMIUM<br>
+          Transporte ejecutivo
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+
+      <header class="topbar">
+        <div class="topbar-title">
+          <strong>Panel de administración</strong>
+          Gestión de servicios y clientes
         </div>
 
-        <select id="filter" aria-label="Filtrar solicitudes">
-          <option value="all">Todos los estados</option>
-          <option value="pending">Pendientes</option>
-          <option value="confirmed">Confirmadas</option>
-          <option value="completed">Completadas</option>
-          <option value="cancelled">Canceladas</option>
-        </select>
+        <div class="topbar-actions">
+          <button type="button" id="refresh-all">↻ Actualizar</button>
+          <button type="button" class="logout-btn" id="logout">Cerrar sesión</button>
+        </div>
+      </header>
+
+      <div class="content">
+
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">JONAS PREMIUM · CONTROL CENTER</div>
+            <h1>Panel de gestión</h1>
+            <p>Administra las solicitudes de servicio y los presupuestos de tus clientes.</p>
+          </div>
+        </div>
+
+        <!-- RESUMEN -->
+        <section class="stats-grid">
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Total de solicitudes</span>
+              <span class="stat-icon">▦</span>
+            </div>
+            <strong class="stat-number" id="stat-total">—</strong>
+            <div class="stat-description">Solicitudes registradas</div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Pendientes</span>
+              <span class="stat-icon">◷</span>
+            </div>
+            <strong class="stat-number" id="stat-pending">—</strong>
+            <div class="stat-description">Pendientes de gestionar</div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Confirmadas</span>
+              <span class="stat-icon">✓</span>
+            </div>
+            <strong class="stat-number" id="stat-confirmed">—</strong>
+            <div class="stat-description">Servicios confirmados</div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-top">
+              <span class="stat-label">Presupuestos</span>
+              <span class="stat-icon">€</span>
+            </div>
+            <strong class="stat-number" id="stat-quotes">—</strong>
+            <div class="stat-description">Presupuestos registrados</div>
+          </article>
+        </section>
+
+        <!-- SOLICITUDES -->
+        <section class="tab-panel" id="tab-reservations">
+
+          <div class="section-heading">
+            <div>
+              <h2>Solicitudes de servicio</h2>
+              <p>Consulta y gestiona las peticiones de tus clientes.</p>
+            </div>
+          </div>
+
+          <div class="content-panel">
+            <div class="toolbar">
+              <p class="status-message" id="admin-msg" role="status">
+                Información del panel
+              </p>
+
+              <select id="filter" aria-label="Filtrar solicitudes">
+                <option value="all">Todas las solicitudes</option>
+                <option value="pending">Pendientes</option>
+                <option value="confirmed">Confirmadas</option>
+                <option value="completed">Completadas</option>
+                <option value="cancelled">Canceladas</option>
+              </select>
+            </div>
+
+            <div id="reservations">
+              <div class="empty">Cargando solicitudes...</div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- PRESUPUESTOS -->
+        <section class="tab-panel hidden" id="tab-quotes">
+
+          <div class="section-heading">
+            <div>
+              <h2>Presupuestos</h2>
+              <p>Consulta el historial y prepara comunicaciones para tus clientes.</p>
+            </div>
+          </div>
+
+          <div class="content-panel">
+            <div id="quotes-list">
+              <div class="empty">Cargando presupuestos...</div>
+            </div>
+          </div>
+
+        </section>
+
       </div>
+    </main>
+  </div>
 
-      <div id="reservations"></div>
-
-    </section>
-
-    <section id="tab-quotes" class="tab-panel hidden">
-
-      <div class="admin-card">
-        <h2>Historial de presupuestos</h2>
-
-        <p class="notice">
-          Consulta los presupuestos preparados y su estado. Puedes abrir
-          WhatsApp o tu correo para revisar y enviar cada mensaje manualmente.
-        </p>
-      </div>
-
-      <div id="quotes-list"></div>
-
-    </section>
-
-  </section>
-
-</main>
-
-<script type="module" src="./admin.js"></script>
+  <script type="module" src="./admin.js"></script>
 
 </body>
 </html>
+```
