@@ -12,12 +12,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     :root {
       --dark: #111111;
       --dark-soft: #191919;
       --red: #e63946;
+      --red-dark: #c92d39;
       --red-soft: #fff0f1;
       --ink: #202020;
       --muted: #858585;
@@ -27,6 +30,8 @@
       --green: #23865b;
       --orange: #bd7b24;
       --blue: #4775b8;
+      --radius: 14px;
+      --shadow: 0 5px 22px rgba(0,0,0,.035);
     }
 
     body {
@@ -45,7 +50,13 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .hidden { display: none !important; }
+    button {
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
 
     /* LOGIN */
 
@@ -56,6 +67,7 @@
       padding: 24px;
       background:
         radial-gradient(circle at 80% 15%, #3b2022 0, transparent 35%),
+        radial-gradient(circle at 15% 85%, #242424 0, transparent 40%),
         #111;
     }
 
@@ -64,6 +76,7 @@
       max-width: 430px;
       padding: 42px;
       background: white;
+      border: 1px solid #ffffff18;
       border-radius: 18px;
       box-shadow: 0 25px 80px #0005;
     }
@@ -133,8 +146,10 @@
       resize: vertical;
     }
 
-    button {
-      cursor: pointer;
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid #e6394680;
+      outline-offset: 3px;
     }
 
     .primary-btn {
@@ -149,7 +164,7 @@
     }
 
     .primary-btn:hover {
-      background: #c92d39;
+      background: var(--red-dark);
       transform: translateY(-1px);
     }
 
@@ -160,7 +175,7 @@
       line-height: 1.5;
     }
 
-    /* ESTRUCTURA DEL PANEL */
+    /* ESTRUCTURA */
 
     .app-shell {
       min-height: 100vh;
@@ -174,7 +189,9 @@
       display: flex;
       flex-direction: column;
       padding: 27px 19px;
-      background: var(--dark);
+      background:
+        radial-gradient(circle at 100% 0%, #301719 0, transparent 35%),
+        var(--dark);
       color: white;
     }
 
@@ -182,7 +199,7 @@
       display: flex;
       align-items: center;
       gap: 11px;
-      padding: 0 7px 34px;
+      padding: 0 7px 30px;
       border-bottom: 1px solid #ffffff17;
     }
 
@@ -233,7 +250,7 @@
       text-align: left;
       font-size: 12px;
       font-weight: 700;
-      transition: .2s;
+      transition: background .2s, color .2s;
     }
 
     .side-nav button:hover {
@@ -266,6 +283,7 @@
       color: #bbb;
       text-decoration: none;
       font-size: 11px;
+      transition: color .2s;
     }
 
     .sidebar-bottom a:hover {
@@ -298,8 +316,8 @@
     }
 
     .topbar-title {
-      font-size: 12px;
       color: var(--muted);
+      font-size: 12px;
     }
 
     .topbar-title strong {
@@ -316,6 +334,7 @@
     }
 
     .topbar-actions button {
+      min-height: 39px;
       padding: 10px 14px;
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -323,6 +342,7 @@
       color: #555;
       font-size: 11px;
       font-weight: 700;
+      transition: .2s;
     }
 
     .topbar-actions button:hover {
@@ -332,7 +352,13 @@
 
     .topbar-actions .logout-btn {
       border-color: #f2d5d7;
+      background: #fffafa;
       color: #c52d39;
+    }
+
+    .topbar-actions .logout-btn:hover {
+      border-color: var(--red);
+      background: var(--red-soft);
     }
 
     .content {
@@ -371,123 +397,91 @@
       line-height: 1.7;
     }
 
-    /* TARJETAS */
+    /* ESTADÍSTICAS */
 
-    /* =====================================
-   ESTADÍSTICAS - JONAS PREMIUM
-   ===================================== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 32px;
+    }
 
-        .stats-grid {
-          display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 18px;
-          margin-bottom: 32px;
-        }
-        
-        .stat-card {
-          position: relative;
-          overflow: hidden;
-          min-height: 145px;
-          padding: 23px;
-          border: 1px solid #ebebeb;
-          border-radius: 14px;
-          background: #fff;
-          box-shadow: 0 5px 20px rgba(0,0,0,.035);
-          transition: transform .2s, box-shadow .2s;
-        }
-        
-        .stat-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 28px rgba(0,0,0,.07);
-        }
-        
-        .stat-card:after {
-          position: absolute;
-          right: -25px;
-          bottom: -42px;
-          width: 115px;
-          height: 115px;
-          border-radius: 50%;
-          background: #e6394609;
-          content: "";
-          pointer-events: none;
-        }
-        
-        .stat-top {
-          position: relative;
-          z-index: 1;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 10px;
-        }
-        
-        .stat-label {
-          color: #777;
-          font-size: 11px;
-          font-weight: 800;
-        }
-        
-        .stat-icon {
-          width: 39px;
-          height: 39px;
-          display: grid;
-          place-items: center;
-          border-radius: 11px;
-          background: #fff0f1;
-          color: #e63946;
-          font-size: 17px;
-          font-weight: 800;
-        }
-        
-        .stat-number {
-          position: relative;
-          z-index: 1;
-          display: block;
-          margin-top: 15px;
-          color: #171717;
-          font-size: 32px;
-          font-weight: 800;
-          line-height: 1.1;
-          letter-spacing: -1.3px;
-          font-variant-numeric: tabular-nums;
-        }
-        
-        .stat-description {
-          position: relative;
-          z-index: 1;
-          margin-top: 7px;
-          color: #999;
-          font-size: 10px;
-        }
-        
-        @media(max-width:1100px) {
-          .stats-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-          }
-        }
-        
-        @media(max-width:520px) {
-          .stats-grid {
-            gap: 11px;
-            margin-bottom: 24px;
-          }
-        
-          .stat-card {
-            min-height: 125px;
-            padding: 15px;
-          }
-        
-          .stat-number {
-            font-size: 27px;
-          }
-        
-          .stat-icon {
-            width: 32px;
-            height: 32px;
-            font-size: 15px;
-          }
-        }
+    .stat-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 145px;
+      padding: 23px;
+      border: 1px solid #ebebeb;
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0,0,0,.07);
+    }
+
+    .stat-card:after {
+      position: absolute;
+      right: -25px;
+      bottom: -42px;
+      width: 115px;
+      height: 115px;
+      border-radius: 50%;
+      background: #e6394609;
+      content: "";
+      pointer-events: none;
+    }
+
+    .stat-top {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .stat-label {
+      color: #777;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .stat-icon {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: var(--red-soft);
+      color: var(--red);
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .stat-number {
+      position: relative;
+      z-index: 1;
+      display: block;
+      margin-top: 15px;
+      color: #171717;
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.3px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-description {
+      position: relative;
+      z-index: 1;
+      margin-top: 7px;
+      color: #999;
+      font-size: 10px;
+    }
 
     /* SECCIONES */
 
@@ -514,9 +508,9 @@
     .content-panel {
       padding: 24px;
       border: 1px solid #ededed;
-      border-radius: 13px;
+      border-radius: var(--radius);
       background: white;
-      box-shadow: 0 4px 18px #00000005;
+      box-shadow: var(--shadow);
     }
 
     .toolbar {
@@ -541,69 +535,204 @@
       font-size: 11px;
     }
 
-    /* TARJETAS DE SOLICITUDES Y PRESUPUESTOS */
+    /* SOLICITUDES */
 
-    .reservation,
-    .data-card {
-      margin-bottom: 16px;
-      padding: 22px;
-      border: 1px solid #ededed;
-      border-radius: 12px;
-      background: white;
-      transition: box-shadow .2s, border .2s;
+    .reservation {
+      margin-bottom: 20px;
+      padding: 25px;
+      border: 1px solid #eaeaea;
+      border-left: 4px solid #d5d5d5;
+      border-radius: 13px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
     }
 
-    .reservation:hover,
-    .data-card:hover {
-      border-color: #e5c4c6;
-      box-shadow: 0 8px 25px #00000008;
+    .reservation:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0,0,0,.07);
     }
 
-    .reservation:last-child,
-    .data-card:last-child {
+    .reservation:last-child {
       margin-bottom: 0;
+    }
+
+    .reservation:has(.status-pending) {
+      border-left-color: #d99a2b;
+    }
+
+    .reservation:has(.status-confirmed) {
+      border-left-color: var(--green);
+    }
+
+    .reservation:has(.status-completed) {
+      border-left-color: var(--blue);
+    }
+
+    .reservation:has(.status-cancelled) {
+      border-left-color: #999;
     }
 
     .reservation-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 15px;
-    }
-
-    .reservation h3,
-    .data-card h3 {
-      margin: 0 0 12px;
-      font-size: 16px;
+      gap: 15px;
+      padding-bottom: 17px;
+      margin-bottom: 17px;
+      border-bottom: 1px solid #eee;
     }
 
     .reservation-header h3 {
       margin: 0;
+      color: #171717;
+      font-size: 17px;
+      font-weight: 800;
     }
 
-    .reservation p,
-    .data-card p {
-      margin: 8px 0;
-      color: #666;
-      font-size: 12px;
-      line-height: 1.6;
-      overflow-wrap: anywhere;
-    }
-
-    .reservation p strong,
-    .data-card p strong {
-      color: #333;
+    .reservation-label {
+      display: block;
+      margin-bottom: 7px;
+      color: #999;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
     }
 
     .status-pill {
       display: inline-block;
-      padding: 6px 10px;
+      padding: 7px 12px;
       border-radius: 30px;
-      background: #fff4e5;
+      background: #fff3dc;
       color: #a76b17;
       font-size: 10px;
       font-weight: 800;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .status-pill.status-pending {
+      background: #fff3dc;
+      color: #a76b17;
+    }
+
+    .status-pill.status-confirmed {
+      background: #e5f5ec;
+      color: #23865b;
+    }
+
+    .status-pill.status-completed {
+      background: #e8f0fc;
+      color: #4775b8;
+    }
+
+    .status-pill.status-cancelled {
+      background: #f0eeee;
+      color: #777;
+    }
+
+    .reservation p {
+      margin: 8px 0;
+      color: #666;
+      font-size: 12px;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+    }
+
+    .reservation p strong {
+      color: #333;
+    }
+
+    .reservation-route {
+      margin: 20px 0;
+      padding: 20px;
+      background: #f8f8f8;
+      border: 1px solid #eee;
+      border-radius: 10px;
+    }
+
+    .route-point {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .route-point small,
+    .detail-item small {
+      display: block;
+      margin-bottom: 5px;
+      color: #999;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .8px;
+    }
+
+    .route-point strong {
+      display: block;
+      color: #222;
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .route-dot {
+      width: 10px;
+      height: 10px;
+      flex: 0 0 10px;
+      border-radius: 50%;
+    }
+
+    .origin-dot {
+      background: var(--red);
+    }
+
+    .destination-dot {
+      background: #171717;
+    }
+
+    .route-line {
+      height: 19px;
+      margin: 2px 0 2px 4px;
+      border-left: 1px dashed #bbb;
+    }
+
+    .reservation-details {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 17px;
+      padding: 5px 2px 18px;
+    }
+
+    .detail-item strong {
+      display: block;
+      color: #333;
+      font-size: 12px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .detail-email {
+      grid-column: 1 / -1;
+    }
+
+    .reservation-notes {
+      margin: 0 0 18px;
+      padding: 13px 15px;
+      background: #fff9f8;
+      border-left: 3px solid var(--red);
+      border-radius: 5px;
+    }
+
+    .reservation-notes strong {
+      font-size: 11px;
+    }
+
+    .reservation-notes p {
+      margin: 6px 0 0;
+      color: #666;
+      font-size: 12px;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
     }
 
     .reservation-actions,
@@ -613,7 +742,7 @@
       align-items: flex-end;
       gap: 12px;
       margin-top: 18px;
-      padding-top: 17px;
+      padding-top: 20px;
       border-top: 1px solid var(--line);
     }
 
@@ -621,18 +750,21 @@
       flex: 1;
       min-width: 190px;
       margin: 0;
+      color: #444;
     }
 
     .reservation-actions select {
+      min-height: 42px;
       margin-bottom: 0;
+      background: #fafafa;
     }
 
     .smallbtn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 40px;
-      padding: 10px 15px;
+      min-height: 42px;
+      padding: 10px 17px;
       border: 1px solid #e5e5e5;
       border-radius: 8px;
       background: white;
@@ -653,16 +785,20 @@
       cursor: not-allowed;
     }
 
+    /* FORMULARIO DE PRESUPUESTO */
+
     .quote-form {
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 10px;
-      background: #f8f8f8;
+      margin-top: 22px;
+      padding: 22px;
+      border: 1px solid #eee;
+      border-radius: 11px;
+      background: #fafafa;
     }
 
     .quote-form h4 {
       margin: 0 0 17px;
-      font-size: 13px;
+      font-size: 14px;
+      font-weight: 800;
     }
 
     .quote-form form {
@@ -677,17 +813,20 @@
 
     .quote-form button {
       justify-self: start;
-      padding: 12px 17px;
+      min-height: 42px;
+      padding: 12px 20px;
       border: 0;
       border-radius: 8px;
-      background: var(--dark);
+      background: #171717;
       color: white;
       font-size: 11px;
       font-weight: 800;
+      transition: background .2s, transform .2s;
     }
 
     .quote-form button:hover {
       background: var(--red);
+      transform: translateY(-1px);
     }
 
     .quote-form button:disabled {
@@ -703,18 +842,178 @@
 
     .quote-message {
       grid-column: 1 / -1;
-      margin: 10px 0 0;
+      margin: 20px 0 0;
+      padding-top: 15px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* PRESUPUESTOS */
+
+    .data-card {
+      margin-bottom: 16px;
+      padding: 22px;
+      border: 1px solid #ededed;
+      border-radius: 12px;
+      background: white;
+      transition: box-shadow .2s, border .2s;
+    }
+
+    .data-card:hover {
+      border-color: #e5c4c6;
+      box-shadow: 0 8px 25px #00000008;
+    }
+
+    .data-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .data-card h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+
+    .data-card p {
+      margin: 8px 0;
+      color: #666;
+      font-size: 12px;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .data-card p strong {
+      color: #333;
+    }
+
+    .quote-card {
+      margin-bottom: 20px;
+      padding: 24px;
+      border: 1px solid #eaeaea;
+      border-left: 4px solid var(--red);
+      border-radius: 13px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .quote-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .quote-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(0,0,0,.07);
+    }
+
+    .quote-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .quote-card-header h3 {
+      margin: 0;
+      color: #171717;
+      font-size: 17px;
+    }
+
+    .quote-price {
+      color: var(--red);
+      font-size: 21px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .quote-route {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 9px;
+      margin: 18px 0;
+      padding: 15px;
+      background: #f8f8f8;
+      border-radius: 9px;
+    }
+
+    .quote-route strong {
+      color: #222;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .quote-route span {
+      color: var(--red);
+      font-weight: 900;
+    }
+
+    .quote-details {
+      padding-bottom: 18px;
+    }
+
+    .quote-status-section {
+      padding-top: 17px;
+      border-top: 1px solid #eee;
+    }
+
+    .quote-status-section label {
+      display: block;
+      color: #444;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .quote-status-section select {
+      display: block;
+      width: 100%;
+      min-height: 42px;
+      margin-top: 8px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      background: #fafafa;
     }
 
     .quote-actions {
       align-items: center;
+      gap: 10px;
+      margin-top: 17px;
     }
 
-    .quote-message {
-      margin-top: 20px;
-      padding-top: 15px;
-      border-top: 1px solid var(--line);
+    .quote-actions button {
+      min-height: 42px;
+      padding: 10px 17px;
+      border-radius: 7px;
+      font-weight: 700;
     }
+
+    .quote-actions button:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+    }
+
+    .quote-history {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 9px;
+      background: #f8f8f8;
+      font-size: 11px;
+    }
+
+    .quote-history > strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .quote-history p {
+      margin: 7px 0;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    /* ESTADOS VACÍOS */
 
     .empty {
       padding: 38px 20px;
@@ -725,7 +1024,7 @@
       font-size: 12px;
     }
 
-    /* MÓVIL */
+    /* TABLET */
 
     @media (max-width: 1100px) {
       .stats-grid {
@@ -742,6 +1041,8 @@
         padding-right: 25px;
       }
     }
+
+    /* MÓVIL */
 
     @media (max-width: 760px) {
       .sidebar {
@@ -800,16 +1101,17 @@
 
     @media (max-width: 520px) {
       .stats-grid {
-        gap: 10px;
+        gap: 11px;
+        margin-bottom: 24px;
       }
 
       .stat-card {
-        min-height: 116px;
-        padding: 14px;
+        min-height: 125px;
+        padding: 15px;
       }
 
       .stat-number {
-        font-size: 25px;
+        font-size: 27px;
       }
 
       .stat-label {
@@ -817,8 +1119,14 @@
       }
 
       .stat-icon {
-        width: 29px;
-        height: 29px;
+        width: 32px;
+        height: 32px;
+        font-size: 15px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        gap: 10px;
       }
 
       .topbar-actions {
@@ -851,8 +1159,19 @@
         width: 100%;
       }
 
-      .reservation,
-      .data-card {
+      .reservation {
+        padding: 17px;
+      }
+
+      .reservation-header {
+        align-items: flex-start;
+      }
+
+      .reservation-details {
+        gap: 15px 10px;
+      }
+
+      .reservation-route {
         padding: 16px;
       }
 
@@ -885,434 +1204,32 @@
         width: 100%;
       }
 
+      .quote-card {
+        padding: 17px;
+      }
+
+      .quote-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .quote-price {
+        font-size: 20px;
+      }
+
+      .quote-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .quote-actions button {
+        width: 100%;
+      }
+
       .login-card {
         padding: 28px 23px;
       }
     }
-    
-/* ==========================================
-   JONAS PREMIUM — TARJETAS DE SOLICITUDES
-   ========================================== */
-
-.reservation {
-  padding: 25px;
-  margin-bottom: 20px;
-  border: 1px solid #eaeaea;
-  border-left: 4px solid #d5d5d5;
-  border-radius: 13px;
-  background: #fff;
-  box-shadow: 0 5px 20px rgba(0,0,0,.035);
-  transition: transform .2s, box-shadow .2s;
-}
-
-.reservation:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(0,0,0,.07);
-}
-
-.reservation-header {
-  padding-bottom: 17px;
-  margin-bottom: 17px;
-  border-bottom: 1px solid #eee;
-}
-
-.reservation-header h3 {
-  font-size: 17px;
-  font-weight: 800;
-}
-
-.status-pill {
-  padding: 7px 12px;
-  border-radius: 30px;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .3px;
-  text-transform: uppercase;
-}
-
-.status-pill.status-pending {
-  background: #fff3dc;
-  color: #a76b17;
-}
-
-.status-pill.status-confirmed {
-  background: #e5f5ec;
-  color: #23865b;
-}
-
-.status-pill.status-completed {
-  background: #e8f0fc;
-  color: #4775b8;
-}
-
-.status-pill.status-cancelled {
-  background: #f0eeee;
-  color: #777;
-}
-
-.reservation p {
-  line-height: 1.8;
-  font-size: 12px;
-}
-
-.reservation-actions {
-  padding-top: 20px;
-  margin-top: 20px;
-}
-
-.reservation-actions label {
-  color: #444;
-}
-
-.reservation-actions select {
-  min-height: 42px;
-  background: #fafafa;
-}
-
-.reservation-actions .smallbtn {
-  min-height: 42px;
-  padding-left: 19px;
-  padding-right: 19px;
-}
-
-.quote-form {
-  margin-top: 22px;
-  padding: 22px;
-  border: 1px solid #eee;
-  border-radius: 11px;
-  background: #fafafa;
-}
-
-.quote-form h4 {
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.quote-form button {
-  min-height: 42px;
-  padding: 12px 20px;
-  background: #171717;
-  transition: background .2s, transform .2s;
-}
-
-.quote-form button:hover {
-  background: #e63946;
-  transform: translateY(-1px);
-}
-
-@media(max-width:520px) {
-  .reservation {
-    padding: 17px;
-  }
-
-  .reservation-header {
-    align-items: flex-start;
-  }
-
-  .quote-form {
-    padding: 15px;
-  }
-}
-    /* =====================================
-   JONAS PREMIUM - DETALLES DE SOLICITUD
-   ===================================== */
-
-.reservation-label {
-  display: block;
-  margin-bottom: 7px;
-  color: #999;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.4px;
-}
-
-.reservation-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-}
-
-.reservation-header h3 {
-  margin: 0;
-  color: #171717;
-  font-size: 17px;
-}
-
-.reservation-route {
-  margin: 20px 0;
-  padding: 20px;
-  background: #f8f8f8;
-  border: 1px solid #eee;
-  border-radius: 10px;
-}
-
-.route-point {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-}
-
-.route-point small,
-.detail-item small {
-  display: block;
-  margin-bottom: 5px;
-  color: #999;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: .8px;
-}
-
-.route-point strong {
-  display: block;
-  color: #222;
-  font-size: 13px;
-  overflow-wrap: anywhere;
-}
-
-.route-dot {
-  width: 10px;
-  height: 10px;
-  flex: 0 0 10px;
-  border-radius: 50%;
-}
-
-.origin-dot {
-  background: #e63946;
-}
-
-.destination-dot {
-  background: #171717;
-}
-
-.route-line {
-  height: 19px;
-  margin: 2px 0 2px 4px;
-  border-left: 1px dashed #bbb;
-}
-
-.reservation-details {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 17px;
-  padding: 5px 2px 18px;
-}
-
-.detail-item strong {
-  display: block;
-  color: #333;
-  font-size: 12px;
-  font-weight: 700;
-  overflow-wrap: anywhere;
-}
-
-.detail-email {
-  grid-column: 1 / -1;
-}
-
-.reservation-notes {
-  margin: 0 0 18px;
-  padding: 13px 15px;
-  background: #fff9f8;
-  border-left: 3px solid #e63946;
-  border-radius: 5px;
-}
-
-.reservation-notes strong {
-  font-size: 11px;
-}
-
-.reservation-notes p {
-  margin: 6px 0 0;
-  color: #666;
-  font-size: 12px;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
-}
-
-@media(max-width:520px) {
-  .reservation-header {
-    align-items: flex-start;
-  }
-
-  .reservation-details {
-    gap: 15px 10px;
-  }
-
-  .reservation-route {
-    padding: 16px;
-  }
-}
-
-    /* Borde lateral según estado de la solicitud */
-
-.reservation:has(.status-pending) {
-  border-left: 4px solid #d99a2b;
-}
-
-.reservation:has(.status-confirmed) {
-  border-left: 4px solid #23865b;
-}
-
-.reservation:has(.status-completed) {
-  border-left: 4px solid #4775b8;
-}
-
-.reservation:has(.status-cancelled) {
-  border-left: 4px solid #999;
-}
-/* =====================================
-   JONAS PREMIUM - TARJETAS PRESUPUESTOS
-   ===================================== */
-
-.quote-card {
-  padding: 24px;
-  margin-bottom: 20px;
-  border: 1px solid #eaeaea;
-  border-left: 4px solid #e63946;
-  border-radius: 13px;
-  background: #fff;
-  box-shadow: 0 5px 20px rgba(0,0,0,.035);
-  transition: transform .2s, box-shadow .2s;
-}
-
-.quote-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(0,0,0,.07);
-}
-
-.quote-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid #eee;
-}
-
-.quote-card-header h3 {
-  margin: 0;
-  color: #171717;
-  font-size: 17px;
-}
-
-.quote-price {
-  color: #e63946;
-  font-size: 21px;
-  font-weight: 900;
-  white-space: nowrap;
-}
-
-.quote-route {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 9px;
-  margin: 18px 0;
-  padding: 15px;
-  background: #f8f8f8;
-  border-radius: 9px;
-}
-
-.quote-route strong {
-  color: #222;
-  font-size: 12px;
-  overflow-wrap: anywhere;
-}
-
-.quote-route span {
-  color: #e63946;
-  font-weight: 900;
-}
-
-.quote-details {
-  padding-bottom: 18px;
-}
-
-.quote-status-section {
-  padding-top: 17px;
-  border-top: 1px solid #eee;
-}
-
-.quote-status-section label {
-  display: block;
-  color: #444;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.quote-status-section select {
-  display: block;
-  width: 100%;
-  min-height: 42px;
-  margin-top: 8px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 7px;
-  background: #fafafa;
-}
-
-.quote-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 17px;
-}
-
-.quote-actions button {
-  min-height: 42px;
-  padding: 10px 17px;
-  border-radius: 7px;
-  font-weight: 700;
-}
-
-.quote-actions button:disabled {
-  opacity: .4;
-  cursor: not-allowed;
-}
-
-.quote-history {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 9px;
-  background: #f8f8f8;
-  font-size: 11px;
-}
-
-.quote-history > strong {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 12px;
-}
-
-.quote-history p {
-  margin: 7px 0;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
-}
-
-@media(max-width:520px) {
-  .quote-card {
-    padding: 17px;
-  }
-
-  .quote-card-header {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .quote-price {
-    font-size: 20px;
-  }
-
-  .quote-actions {
-    flex-direction: column;
-  }
-
-  .quote-actions button {
-    width: 100%;
-  }
-}
   </style>
 </head>
 
@@ -1418,6 +1335,7 @@
 
         <!-- RESUMEN -->
         <section class="stats-grid">
+
           <article class="stat-card">
             <div class="stat-top">
               <span class="stat-label">Total de solicitudes</span>
@@ -1453,6 +1371,7 @@
             <strong class="stat-number" id="stat-quotes">—</strong>
             <div class="stat-description">Presupuestos registrados</div>
           </article>
+
         </section>
 
         <!-- SOLICITUDES -->
