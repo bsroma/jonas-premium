@@ -1095,6 +1095,24 @@
   }
 }
 
+    /* Borde lateral según estado de la solicitud */
+
+.reservation:has(.status-pending) {
+  border-left: 4px solid #d99a2b;
+}
+
+.reservation:has(.status-confirmed) {
+  border-left: 4px solid #23865b;
+}
+
+.reservation:has(.status-completed) {
+  border-left: 4px solid #4775b8;
+}
+
+.reservation:has(.status-cancelled) {
+  border-left: 4px solid #999;
+}
+
   </style>
 </head>
 
