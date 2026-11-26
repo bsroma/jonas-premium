@@ -129,25 +129,11 @@
     </div>
 
     <p data-site-i18n="bookingIntro">
-      Completa la solicitud y nos pondremos en contacto contigo para confirmar disponibilidad y presupuesto.
+      Envíanos los datos de tu trayecto y te contactaremos con un presupuesto personalizado.
     </p>
   </div>
 
   <form id="booking-form" class="booking-form">
-
-    <div class="field">
-      <label for="service" data-site-i18n="serviceLabel">Tipo de servicio</label>
-      <select id="service" name="service" required>
-  <option value="" data-site-i18n="serviceChoose">Selecciona una opción</option>
-  <option value="Traslado aeropuerto / estación" data-site-i18n="serviceAirport">Traslado aeropuerto / estación</option>
-  <option value="Hotel y recogida" data-site-i18n="serviceHotel">Hotel y recogida</option>
-  <option value="Empresas" data-site-i18n="serviceBusiness">Empresas</option>
-  <option value="Bodas y eventos" data-site-i18n="serviceEvents">Bodas y eventos</option>
-  <option value="Servicio por horas" data-site-i18n="serviceHours">Servicio por horas</option>
-  <option value="Viaje interurbano / nacional" data-site-i18n="serviceNational">Viaje interurbano / nacional</option>
-  <option value="Otro servicio" data-site-i18n="serviceOther">Otro servicio</option>
-</select>
-    </div>
 
     <div class="field">
       <label for="origin" data-site-i18n="originLabel">Origen</label>
@@ -161,13 +147,6 @@
       <input id="destination" name="destination"
         placeholder="¿A dónde te llevamos?"
         data-site-placeholder="destinationPlaceholder" required>
-    </div>
-
-    <div id="route-price-panel" class="field field-wide"
-      role="status" aria-live="polite" hidden
-      style="padding:18px 20px;border:1px solid #e9e7e4;background:#faf9f7;gap:7px">
-      <strong id="route-price-title" style="font-size:15px"></strong>
-      <p id="route-price-copy" style="margin:0;color:#777;font-size:14px;line-height:1.7"></p>
     </div>
 
     <div class="field">
@@ -360,12 +339,8 @@ const siteTranslations = {
     trustPersonal:"✦ Servicio personalizado", trustNational:"⌁ Viajes nacionales", trustBooking:"◷ Reserva anticipada",
     imageLocation:"CANTABRIA, NORTE DE ESPAÑA", imageCaption:"Un servicio a tu altura.",
     bookingEyebrow:"TU PRÓXIMO TRAYECTO", bookingTitle:"Cuéntanos dónde<br>quieres ir.",
-    bookingIntro:"Completa la solicitud y nos pondremos en contacto contigo para confirmar disponibilidad y presupuesto.",
-    serviceLabel:"Tipo de servicio", serviceChoose:"Selecciona una opción",
-    serviceAirport:"Traslado aeropuerto / estación", serviceHotel:"Hotel y recogida",
-    serviceBusiness:"Empresas", serviceEvents:"Bodas y eventos",
-    serviceHours:"Servicio por horas", serviceNational:"Viaje interurbano / nacional",
-    serviceOther:"Otro servicio", originLabel:"Origen", destinationLabel:"Destino",
+    bookingIntro:"Envíanos los datos de tu trayecto y te contactaremos con un presupuesto personalizado.",
+    originLabel:"Origen", destinationLabel:"Destino",
     originPlaceholder:"Ciudad, dirección o aeropuerto",
     destinationPlaceholder:"¿A dónde te llevamos?",
     dateLabel:"Fecha", timeLabel:"Hora de recogida", passengersLabel:"Pasajeros",
@@ -402,12 +377,8 @@ const siteTranslations = {
     trustPersonal:"✦ Personal service", trustNational:"⌁ Nationwide journeys", trustBooking:"◷ Advance booking",
     imageLocation:"CANTABRIA, NORTHERN SPAIN", imageCaption:"A service above expectations.",
     bookingEyebrow:"YOUR NEXT JOURNEY", bookingTitle:"Tell us where<br>you would like to go.",
-    bookingIntro:"Complete the request form and we will contact you to confirm availability and provide a quote.",
-    serviceLabel:"Service type", serviceChoose:"Choose an option",
-    serviceAirport:"Airport / station transfer", serviceHotel:"Hotel pickup",
-    serviceBusiness:"Business travel", serviceEvents:"Weddings and events",
-    serviceHours:"Hourly service", serviceNational:"Intercity / nationwide journey",
-    serviceOther:"Other service", originLabel:"Pickup location", destinationLabel:"Destination",
+    bookingIntro:"Send us your journey details and we will contact you with a personalised quotation.",
+    originLabel:"Pickup location", destinationLabel:"Destination",
     originPlaceholder:"City, address or airport",
     destinationPlaceholder:"Where would you like to go?",
     dateLabel:"Date", timeLabel:"Pickup time", passengersLabel:"Passengers",
@@ -444,12 +415,8 @@ const siteTranslations = {
     trustPersonal:"✦ Service personnalisé", trustNational:"⌁ Voyages nationaux", trustBooking:"◷ Réservation à l'avance",
     imageLocation:"CANTABRIE, NORD DE L'ESPAGNE", imageCaption:"Un service à votre hauteur.",
     bookingEyebrow:"VOTRE PROCHAIN TRAJET", bookingTitle:"Indiquez-nous où<br>vous souhaitez aller.",
-    bookingIntro:"Remplissez la demande et nous vous contacterons pour confirmer la disponibilité et vous proposer un devis.",
-    serviceLabel:"Type de service", serviceChoose:"Choisissez une option",
-    serviceAirport:"Transfert aéroport / gare", serviceHotel:"Hôtel et prise en charge",
-    serviceBusiness:"Entreprises", serviceEvents:"Mariages et événements",
-    serviceHours:"Service à l'heure", serviceNational:"Trajet interurbain / national",
-    serviceOther:"Autre service", originLabel:"Départ", destinationLabel:"Destination",
+    bookingIntro:"Envoyez-nous les détails de votre trajet et nous vous contacterons avec un devis personnalisé.",
+    originLabel:"Départ", destinationLabel:"Destination",
     originPlaceholder:"Ville, adresse ou aéroport",
     destinationPlaceholder:"Où souhaitez-vous aller ?",
     dateLabel:"Date", timeLabel:"Heure de prise en charge", passengersLabel:"Passagers",
