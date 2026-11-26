@@ -245,7 +245,14 @@ function renderReservations() {
       <article class="reservation">
         <div class="reservation-header">
           <h3>${esc(reservation.customer_name || "Cliente")}</h3>
-          <span class="status-pill">${esc(reservation.status || "pending")}</span>
+          <span class="status-pill status-${esc(reservation.status || "pending")}">
+              ${esc({
+                pending: "Pendiente",
+                confirmed: "Confirmada",
+                completed: "Completada",
+                cancelled: "Cancelada"
+              }[reservation.status] || reservation.status || "Pendiente")}
+            </span>
         </div>
 
         <p><strong>Origen:</strong> ${esc(reservation.origin)}</p>
