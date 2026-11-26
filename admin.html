@@ -840,6 +840,131 @@
         padding: 28px 23px;
       }
     }
+    
+/* ==========================================
+   JONAS PREMIUM — TARJETAS DE SOLICITUDES
+   ========================================== */
+
+.reservation {
+  padding: 25px;
+  margin-bottom: 20px;
+  border: 1px solid #eaeaea;
+  border-left: 4px solid #d5d5d5;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 5px 20px rgba(0,0,0,.035);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.reservation:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0,0,0,.07);
+}
+
+.reservation-header {
+  padding-bottom: 17px;
+  margin-bottom: 17px;
+  border-bottom: 1px solid #eee;
+}
+
+.reservation-header h3 {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.status-pill {
+  padding: 7px 12px;
+  border-radius: 30px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+}
+
+.status-pill.status-pending {
+  background: #fff3dc;
+  color: #a76b17;
+}
+
+.status-pill.status-confirmed {
+  background: #e5f5ec;
+  color: #23865b;
+}
+
+.status-pill.status-completed {
+  background: #e8f0fc;
+  color: #4775b8;
+}
+
+.status-pill.status-cancelled {
+  background: #f0eeee;
+  color: #777;
+}
+
+.reservation p {
+  line-height: 1.8;
+  font-size: 12px;
+}
+
+.reservation-actions {
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.reservation-actions label {
+  color: #444;
+}
+
+.reservation-actions select {
+  min-height: 42px;
+  background: #fafafa;
+}
+
+.reservation-actions .smallbtn {
+  min-height: 42px;
+  padding-left: 19px;
+  padding-right: 19px;
+}
+
+.quote-form {
+  margin-top: 22px;
+  padding: 22px;
+  border: 1px solid #eee;
+  border-radius: 11px;
+  background: #fafafa;
+}
+
+.quote-form h4 {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.quote-form button {
+  min-height: 42px;
+  padding: 12px 20px;
+  background: #171717;
+  transition: background .2s, transform .2s;
+}
+
+.quote-form button:hover {
+  background: #e63946;
+  transform: translateY(-1px);
+}
+
+@media(max-width:520px) {
+  .reservation {
+    padding: 17px;
+  }
+
+  .reservation-header {
+    align-items: flex-start;
+  }
+
+  .quote-form {
+    padding: 15px;
+  }
+}
+
   </style>
 </head>
 
