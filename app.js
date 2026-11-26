@@ -10,24 +10,27 @@ const yearElement = document.querySelector("#year");
 const translations = {
   es: {
     demo: "La web está en modo demostración. Configura Supabase para activar el envío real.",
-    sending: "Enviando...",
+    sending: "Enviando solicitud...",
     submit: "Enviar solicitud",
     error: "No se pudo enviar la solicitud. Inténtalo de nuevo o contacta por WhatsApp.",
-    received: "Solicitud recibida correctamente. Contactaremos contigo para preparar un presupuesto personalizado y confirmar la disponibilidad."
+    received: "¡Solicitud enviada correctamente!",
+    receivedDetails: "Gracias por contactar con JONAS PREMIUM. Hemos recibido tu solicitud y revisaremos los detalles. Nos pondremos en contacto contigo para preparar un presupuesto personalizado y confirmar la disponibilidad."
   },
   en: {
     demo: "The website is in demonstration mode. Configure Supabase to activate real submissions.",
-    sending: "Sending...",
+    sending: "Sending request...",
     submit: "Send request",
     error: "Your request could not be sent. Please try again or contact us via WhatsApp.",
-    received: "Your request has been received. We will contact you with a personalised quotation and confirm availability."
+    received: "Your request has been sent successfully!",
+    receivedDetails: "Thank you for contacting JONAS PREMIUM. We have received your request and will review the details. We will contact you with a personalised quotation and confirm availability."
   },
   fr: {
     demo: "Le site est en mode démonstration. Configurez Supabase pour activer l'envoi réel.",
-    sending: "Envoi en cours...",
+    sending: "Envoi de la demande...",
     submit: "Envoyer la demande",
     error: "Votre demande n'a pas pu être envoyée. Veuillez réessayer ou nous contacter par WhatsApp.",
-    received: "Votre demande a bien été reçue. Nous vous contacterons pour préparer un devis personnalisé et confirmer les disponibilités."
+    received: "Votre demande a bien été envoyée !",
+    receivedDetails: "Merci d'avoir contacté JONAS PREMIUM. Nous avons reçu votre demande et allons examiner les détails. Nous vous contacterons pour préparer un devis personnalisé et confirmer les disponibilités."
   }
 };
 
@@ -91,11 +94,18 @@ const supabase = ready
   ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
   : null;
 
+if (message) {
+  message.setAttribute("role", "status");
+  message.setAttribute("aria-live", "polite");
+}
+
 form?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   if (!supabase) {
-    if (message) message.textContent = t("demo");
+    if (message) {
+      message.textContent = t("demo");
+    }
     return;
   }
 
@@ -118,6 +128,10 @@ form?.addEventListener("submit", async (event) => {
   const button = form.querySelector('button[type="submit"]');
   const originalButtonText = button?.innerHTML;
 
+  if (message) {
+    message.textContent = t("sending");
+  }
+
   if (button) {
     button.disabled = true;
     button.textContent = t("sending");
@@ -133,7 +147,11 @@ form?.addEventListener("submit", async (event) => {
     form.reset();
 
     if (message) {
-      message.textContent = t("received");
+      message.textContent = `${t("received")} ${t("receivedDetails")}`;
+      message.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
     }
   } catch (error) {
     console.error("Error al enviar la solicitud:", error);
@@ -144,12 +162,7 @@ form?.addEventListener("submit", async (event) => {
   } finally {
     if (button) {
       button.disabled = false;
-      button.innerHTML = originalButtonText || `${t("submit")} <span>↗</span>`;
+      button.innerHTML = originalButtonText || t("submit");
     }
-  }
-});
-
-      ? `${t("receivedFixed")} ${formatMoney(matchedRoute.price, pricingCurrency)}. ${t("pending")}`
-      : t("receivedCustom");
   }
 });
